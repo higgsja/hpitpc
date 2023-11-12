@@ -1,0 +1,10 @@
+/*right and left set to the same*/ 
+.baseMVCViewRightVL,
+.baseMVCViewLeftVL {
+    /*background-color: lightblue;*/
+    padding-bottom: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 24px;
+    margin: 0px;
+}
