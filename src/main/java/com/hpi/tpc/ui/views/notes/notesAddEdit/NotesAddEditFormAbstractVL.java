@@ -273,11 +273,15 @@ public abstract class NotesAddEditFormAbstractVL
 //                    return false;
 //                }
 
+//                //reset to default
+//                this.notesModel.setIsAdd(false);
+//                this.inPrice = false;
+//
+//                return false;
                 //reset to default
                 this.notesModel.setIsAdd(false);
                 this.inPrice = false;
-
-                return false;
+                    return true;
             }, "Invalid", ErrorLevel.ERROR)
             .bind(NoteModel::getTicker, NoteModel::setTicker);
 
