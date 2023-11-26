@@ -30,21 +30,21 @@ public abstract class NotesAddEditFormAbstractVL
     implements BeforeEnterObserver
 {
 
-    @Autowired private NotesModel notesModel;
+    @Autowired public NotesModel notesModel;
 
     //must be the same as the data model fields
-    @Getter private final TextField ticker;
-    @Getter private final NumberField iPrice;
-    @Getter private final TextField description;
-    @Getter private final NumberField units;
-    @Getter private final ComboBox<String> action;
-    @Getter private final ComboBox<String> triggerType;
-    @Getter private final TextField alert;
-    @Getter private final TextArea notes;
+    public final TextField ticker;
+    public final NumberField iPrice;
+    public final TextField description;
+    public final NumberField units;
+    public final ComboBox<String> action;
+    public final ComboBox<String> triggerType;
+    public final TextField alert;
+    public final TextArea notes;
 
-    @Getter private final NotesAddEditControlsHL controlsHL;
+    public final NotesAddEditControlsHL controlsHL;
 
-    private Boolean inPrice = false;
+//    private Boolean inPrice = false;
 
     public NotesAddEditFormAbstractVL()
     {
@@ -150,136 +150,6 @@ public abstract class NotesAddEditFormAbstractVL
         this.ticker.setPlaceholder("Ticker*");
         this.ticker.setMaxWidth("180px");
         this.ticker.setValueChangeMode(ValueChangeMode.ON_CHANGE);
-        this.notesModel.getBinder().forField(this.ticker)
-            .withValidator(e ->
-            {
-//                Quote quote;
-//                quote = null;
-                if (this.notesModel.getIsSave())
-                {
-                    //on save, we reset the ticker to empty 
-                    //do not want that to show as an error
-//                    this.notesModel.setIsSave(false);
-                    return true;
-                }
-
-                //setting other values here causes repeat validations
-                //and repeated calls for a quote
-                if (this.inPrice)
-                {
-                    return true;
-                }
-
-                if (this.ticker.getValue().isEmpty())
-                {
-                    //cannot set iPrice here as we get multiple fields marked invalid
-                    //and repeated validations
-                    //client cannot save anyway
-                    //this.iPrice.setValue(null);
-                    //this.description.setValue("");
-//                    this.controlsHL.getButtonAddSave().setEnabled(false);
-
-                    return false;
-                }
-
-                //only look for new quote on add; retain initial price on edit
-                //todo: this could fail on edit if the ticker no longer exists
-//                try
-//                {
-//                    quote = this.notesModel.getTickerInfo(this.ticker.getValue());
-//                } catch (RuntimeException f)
-//                {
-//                    this.controlsHL.getButtonAddSave().setEnabled(false);
-//
-//                    return false;
-//                }
-//
-//                if (quote != null)
-//                {
-//                    this.inPrice = true;
-//
-//                    if (this.notesModel.getIsAdd())
-//                    {
-//                        //only update these on Add, not Edit
-//                        //clear data related to previous ticker
-//                        this.iPrice.setValue(0.0);
-//                        this.description.setValue("");
-//
-//                        if (quote instanceof EquityQuote equityQuote1)
-//                        {
-//                            this.iPrice.setValue((equityQuote1.getLastPrice()).doubleValue());
-//                            this.description.setValue(equityQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof EtfQuote etfQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((etfQuote1.getLastPrice()).doubleValue());
-//                            this.description.setValue(etfQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof MutualFundQuote mfQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((mfQuote1.getClosePrice()).doubleValue());
-//                            this.description.setValue(mfQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof IndexQuote idxQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((idxQuote1.getLastPrice()).doubleValue());
-//                            this.description.setValue(idxQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof FutureQuote futureQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((futureQuote1.getLastPriceInDouble()).doubleValue());
-//                            this.description.setValue(futureQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof FutureOptionQuote futureOptionQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((futureOptionQuote1.getLastPriceInDouble()).doubleValue());
-//                            this.description.setValue(futureOptionQuote1.getDescription());
-//                        }
-//
-//                        if (quote instanceof ForexQuote forexQuote1)
-//                        {
-//
-//                            this.iPrice.setValue((forexQuote1.getLastPriceInDouble()).doubleValue());
-//                            this.description.setValue(forexQuote1.getDescription());
-//                        }
-//                    }
-//
-////                    this.iPrice.setValue((equityQuote.getLastPrice()).doubleValue());
-////                    this.description.setValue(equityQuote.getDescription());
-//                    if (this.checkRequired())
-//                    {
-//                        this.controlsHL.getButtonAddSave().setEnabled(true);
-//
-//                        //reset to default
-//                        this.notesModel.setIsAdd(false);
-//                        this.inPrice = false;
-//                        return true;
-//                    }
-//                } else
-//                {
-//                    //reset to default
-//                    this.notesModel.setIsAdd(false);
-//                    this.inPrice = false;
-//                    return false;
-//                }
-
-                //reset to default
-                this.notesModel.setIsAdd(false);
-                this.inPrice = false;
-
-                return false;
-            }, "Invalid", ErrorLevel.ERROR)
-            .bind(NoteModel::getTicker, NoteModel::setTicker);
 
         this.action.setMaxWidth("100px");
         this.notesModel.getBinder()
@@ -301,22 +171,22 @@ public abstract class NotesAddEditFormAbstractVL
         this.description.setMinWidth("297px");
         this.notesModel.getBinder()
             .forField(this.description)
-            .withValidator(e ->
-            {
-                if (this.description.getValue().isEmpty())
-                {
-                    this.controlsHL.getButtonAddSave().setEnabled(false);
-                    return false;
-                } else
-                {
-                    if (this.checkRequired())
-                    {
-                        this.controlsHL.getButtonAddSave().setEnabled(true);
-                        return true;
-                    }
-                }
-                return false;
-            }, "Invalid", ErrorLevel.ERROR)
+//            .withValidator(e ->
+//            {
+//                if (this.description.getValue().isEmpty())
+//                {
+//                    this.controlsHL.getButtonAddSave().setEnabled(false);
+//                    return false;
+//                } else
+//                {
+//                    if (this.checkRequired())
+//                    {
+//                        this.controlsHL.getButtonAddSave().setEnabled(true);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }, "Invalid", ErrorLevel.ERROR)
             .bind(NoteModel::getDescription, NoteModel::setDescription);
 
         this.notes.setPlaceholder("Enter notes");
@@ -332,23 +202,23 @@ public abstract class NotesAddEditFormAbstractVL
         this.units.setMaxWidth("140px");
         this.notesModel.getBinder()
             .forField(this.units)
-            .withValidator(e ->
-            {
-                if (this.units.getValue() == null || this.units.getValue() < 1.0)
-                {
-                    this.controlsHL.getButtonAddSave().setEnabled(false);
-                    return false;
-                } else
-                {
-                    if (this.checkRequired())
-                    {
-                        this.controlsHL.getButtonAddSave().setEnabled(true);
-                        return true;
-                    }
-                }
-
-                return false;
-            }, "Invalid", ErrorLevel.ERROR)
+//            .withValidator(e ->
+//            {
+//                if (this.units.getValue() == null || this.units.getValue() < 1.0)
+//                {
+//                    this.controlsHL.getButtonAddSave().setEnabled(false);
+//                    return false;
+//                } else
+//                {
+//                    if (this.checkRequired())
+//                    {
+//                        this.controlsHL.getButtonAddSave().setEnabled(true);
+//                        return true;
+//                    }
+//                }
+//
+//                return false;
+//            }, "Invalid", ErrorLevel.ERROR)
             .bind(NoteModel::getUnits, NoteModel::setUnits);
 
         this.iPrice.setPlaceholder("Price*");
@@ -357,23 +227,23 @@ public abstract class NotesAddEditFormAbstractVL
             .forField(this.iPrice)
             //            .asRequired()
             //            .withNullRepresentation(0.0)
-            .withValidator(e ->
-            {
-                if (this.iPrice.getValue() == null || this.iPrice.getValue() < 1.0)
-                {
-                    this.controlsHL.getButtonAddSave().setEnabled(false);
-                    return false;
-                } else
-                {
-                    if (this.checkRequired())
-                    {
-                        this.controlsHL.getButtonAddSave().setEnabled(true);
-                        return true;
-                    }
-                }
-
-                return false;
-            }, "Invalid", ErrorLevel.ERROR)
+//            .withValidator(e ->
+//            {
+//                if (this.iPrice.getValue() == null || this.iPrice.getValue() < 1.0)
+//                {
+//                    this.controlsHL.getButtonAddSave().setEnabled(false);
+//                    return false;
+//                } else
+//                {
+//                    if (this.checkRequired())
+//                    {
+//                        this.controlsHL.getButtonAddSave().setEnabled(true);
+//                        return true;
+//                    }
+//                }
+//
+//                return false;
+//            }, "Invalid", ErrorLevel.ERROR)
             .bind(NoteModel::getIPrice, NoteModel::setIPrice);
 
         //title

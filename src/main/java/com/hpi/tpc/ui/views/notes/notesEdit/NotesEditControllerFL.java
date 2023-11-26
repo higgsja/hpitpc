@@ -64,15 +64,15 @@ public class NotesEditControllerFL
 
     private void addListeners()
     {
-        this.notesEditFormVL.getControlsHL().getButtonAddSave().addClickListener(click -> validateAndSave());
+        this.notesEditFormVL.controlsHL.getButtonAddSave().addClickListener(click -> validateAndSave());
 
         this.notesModel.getBinder().addStatusChangeListener(evt ->
         {
-            this.notesEditFormVL.getControlsHL()
+            this.notesEditFormVL.controlsHL
                 .getButtonAddSave().setEnabled(this.notesModel.getBinder().isValid());
         });
 
-        this.notesEditFormVL.getControlsHL().getButtonAddSave().addClickListener((ClickEvent<Button> e) ->
+        this.notesEditFormVL.controlsHL.getButtonAddSave().addClickListener((ClickEvent<Button> e) ->
         {
             //set this so no error when clearing the ticker after a save
 //            this.notesModel.setIsSave(true);
@@ -80,12 +80,12 @@ public class NotesEditControllerFL
             //todo: how do you know the save succeeded?
             //todo: return to correct list
 //            UI.getCurrent().navigate(ROUTE_NOTES_CONTROLLER_MINE);
-            this.notesEditFormVL.getControlsHL().getButtonAddSave().setEnabled(false);
+            this.notesEditFormVL.controlsHL.getButtonAddSave().setEnabled(false);
 //            this.notesEditFormVL.getTicker().focus();
 //            this.notesEditFormVL.getTicker().setValue("");
         });
 
-        this.notesEditFormVL.getControlsHL().getButtonAddCancel().addClickListener(e ->
+        this.notesEditFormVL.controlsHL.getButtonAddCancel().addClickListener(e ->
         {
             //todo: return to correct list
             //required to set the ticker to empty
@@ -96,13 +96,13 @@ public class NotesEditControllerFL
             UI.getCurrent().navigate(ROUTE_NOTES_CONTROLLER_MINE);
         });
 
-        this.notesEditFormVL.getControlsHL().getButtonAddArchive().addClickListener(e ->
+        this.notesEditFormVL.controlsHL.getButtonAddArchive().addClickListener(e ->
         {
             this.notesModel.getNoteModel().setActive(NoteModel.ACTIVE_NO);
 
             this.notesModel.saveUpdate(true);
 
-            this.notesEditFormVL.getControlsHL().getButtonAddSave().setEnabled(false);
+            this.notesEditFormVL.controlsHL.getButtonAddSave().setEnabled(false);
             
             UI.getCurrent().navigate(ROUTE_NOTES_CONTROLLER_MINE);
 
@@ -122,18 +122,19 @@ public class NotesEditControllerFL
         this.notesModel.getBinder().setBean(this.notesModel.getNoteModel());
 
         //disallow changes for edit
-        this.notesEditFormVL.getTicker().setEnabled(false);
-        this.notesEditFormVL.getIPrice().setEnabled(false);
+        this.notesEditFormVL.ticker.setEnabled(false);
+        this.notesEditFormVL.iPrice.setEnabled(false);
+        this.notesEditFormVL.description.setEnabled(false);
 
         //initial button settings upon entry
 //        this.notesEditFormVL.getControlsHL().getButtonAddSave().setVisible(true);
-        this.notesEditFormVL.getControlsHL().getButtonAddSave().setEnabled(false);
+        this.notesEditFormVL.controlsHL.getButtonAddSave().setEnabled(false);
 
-//        this.notesEditFormVL.getControlsHL().getButtonAddCancel().setVisible(true);
-        this.notesEditFormVL.getControlsHL().getButtonAddCancel().setEnabled(true);
+//        this.notesEditFormVL.controlsHL.getButtonAddCancel().setVisible(true);
+        this.notesEditFormVL.controlsHL.getButtonAddCancel().setEnabled(true);
 
-//        this.notesEditFormVL.getControlsHL().getButtonAddArchive().setVisible(true);
-        this.notesEditFormVL.getControlsHL().getButtonAddArchive().setEnabled(true);
+//        this.notesEditFormVL.controlsHL.getButtonAddArchive().setVisible(true);
+        this.notesEditFormVL.controlsHL.getButtonAddArchive().setEnabled(true);
 
         //refresh gear (none)
         super.updateNavBarGear(null);

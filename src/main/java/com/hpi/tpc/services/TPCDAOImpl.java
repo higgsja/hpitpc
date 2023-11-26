@@ -213,8 +213,9 @@ public class TPCDAOImpl
         //adjust timestamp to match the database
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //needs to be in timezone of the database server
-        sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
+        //not sure that is correct
+//        sdf.setTimeZone(TimeZone.getTimeZone("America/Chicago"));
+//        TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
         aDateTime = new Date(noteModel.getTStamp());
         newDateTime = sdf.format(aDateTime);
         sql = NoteModel.SQL_UPDATE_STRING;
@@ -223,9 +224,8 @@ public class TPCDAOImpl
             noteModel.getDescription().replace("'", "\\'"),
             noteModel.getNotes().replace("'", "\\'"), newUnits,
             noteModel.getAction(), noteModel.getTriggerType(),
-            noteModel.getTrigger().replace("'", "\\'"), newPrice, noteModel.
-            getActive(), noteModel.getJoomlaId(), noteModel.getTicker(),
-            newDateTime);
+            noteModel.getTrigger().replace("'", "\\'"), newPrice, noteModel.getActive(),
+            noteModel.getJoomlaId(), noteModel.getTicker(), newDateTime);
 
         jdbcTemplate.execute(sql);
     }
@@ -281,7 +281,6 @@ public class TPCDAOImpl
 //
 //        return ohlcvms;
 //    }
-
     public synchronized List<ClientEquityModel> getClientEquityAttributesModels()
     {
         List<ClientEquityModel> clientEquityAttributesModels;
@@ -305,7 +304,6 @@ public class TPCDAOImpl
 //
 //        return timeseriesModels;
 //    }
-
 //    public synchronized List<GainModel> getGainsModels(String sql)
 //    {
 //        List<GainModel> gainsModels;
@@ -314,7 +312,6 @@ public class TPCDAOImpl
 //
 //        return gainsModels;
 //    }
-
     public synchronized List<ValidateStockTransactionModel>
         getValidateStockTransactionModels(
             EditAccountModel accountModel, TickerModel tickerModel)
