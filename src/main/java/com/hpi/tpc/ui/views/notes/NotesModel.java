@@ -1,5 +1,6 @@
 package com.hpi.tpc.ui.views.notes;
 
+import com.hpi.tpc.app.security.*;
 import com.hpi.tpc.data.entities.*;
 import com.hpi.tpc.ui.views.baseClass.*;
 //import com.studerw.tda.client.*;
@@ -34,6 +35,8 @@ public class NotesModel
     @Getter @Setter private Boolean isSave;
     @Getter @Setter private Boolean isAdd;
 
+    private String noteQuoteSql = "select ei.Ticker, ei.Company, ulds.`Close`  from hlhtxc5_dmOfx.EquityInfo ei, hlhtxc5_dmOfx.Util_LastDailyStock ulds where ei.Ticker = ulds.EquityId and ei.Ticker  = '%s' limit 1";
+
     public NotesModel()
     {
         this.binder = new BeanValidationBinder<>(NoteModel.class);
@@ -53,10 +56,25 @@ public class NotesModel
         this.isAdd = false;
     }
 
-//    public Quote getTickerInfo(String ticker)
-//    {
-//        return this.quote = this.httpTdaClient.fetchQuote(ticker);
-//    }
+    public List<NoteQuoteModel> getTickerInfo(String ticker)
+    {
+        String sql = String.format(this.noteQuoteSql, ticker);
+        List<NoteQuoteModel> quote;
+
+        if (ticker.isEmpty())
+        {
+            return null;
+        }
+
+        quote = jdbcTemplate.query(sql, new NoteQuoteMapper());
+
+        if (quote.isEmpty())
+        {
+            return null;
+        }
+
+        return quote;
+    }
 
     public void getPrefs(String prefPrefix)
     {

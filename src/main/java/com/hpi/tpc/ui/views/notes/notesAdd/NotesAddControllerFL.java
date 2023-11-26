@@ -57,19 +57,19 @@ public class NotesAddControllerFL
 
     private void addListeners()
     {
-        this.notesAddFormVL.getControlsHL().getButtonAddSave().addClickListener((ClickEvent<Button> e) ->
+        this.notesAddFormVL.controlsHL.getButtonAddSave().addClickListener((ClickEvent<Button> e) ->
         {
             //set this so no error when clearing the ticker after a save
             this.notesModel.setIsSave(true);
             this.notesModel.saveAdd();
             //todo: how do you know the save succeeded?
-            this.notesAddFormVL.getControlsHL().getButtonAddSave().setEnabled(false);
-            this.notesAddFormVL.getTicker().focus();
-            this.notesAddFormVL.getTicker().setValue("");
+            this.notesAddFormVL.controlsHL.getButtonAddSave().setEnabled(false);
+            this.notesAddFormVL.ticker.focus();
+            this.notesAddFormVL.ticker.setValue("");
             this.notesModel.setIsSave(false);
         });
 
-        this.notesAddFormVL.getControlsHL().getButtonAddCancel().addClickListener(e ->
+        this.notesAddFormVL.controlsHL.getButtonAddCancel().addClickListener(e ->
         {
             //todo: return to correct list
             UI.getCurrent().navigate(ROUTE_NOTES_CONTROLLER_MINE);
@@ -99,18 +99,19 @@ public class NotesAddControllerFL
         this.notesModel.getBinder().setBean(this.notesModel.getNoteModel());
 
         //allow changes for Add
-        this.notesAddFormVL.getTicker().setEnabled(true);
-        this.notesAddFormVL.getIPrice().setEnabled(true);
+        this.notesAddFormVL.ticker.setEnabled(true);
+//        this.notesAddFormVL.price.setEnabled(true);
+        this.notesAddFormVL.description.setEnabled(false);
 
         //initial button settings upon entry
 //        this.notesAddFormVL.getControlsHL().getButtonAddSave().setVisible(true);
-        this.notesAddFormVL.getControlsHL().getButtonAddSave().setEnabled(false);
+        this.notesAddFormVL.controlsHL.getButtonAddSave().setEnabled(false);
 
-//        this.notesAddFormVL.getControlsHL().getButtonAddCancel().setVisible(true);
-        this.notesAddFormVL.getControlsHL().getButtonAddCancel().setEnabled(true);
+//        this.notesAddFormVL.controlsHL.getButtonAddCancel().setVisible(true);
+        this.notesAddFormVL.controlsHL.getButtonAddCancel().setEnabled(true);
 
-        this.notesAddFormVL.getControlsHL().getButtonAddArchive().setVisible(false);
-//        this.notesAddFormVL.getControlsHL().getButtonAddArchive().setEnabled(false);
+        this.notesAddFormVL.controlsHL.getButtonAddArchive().setVisible(false);
+//        this.notesAddFormVL.controlsHL.getButtonAddArchive().setEnabled(false);
 
         //refresh gear (none)
         super.updateNavBarGear(null);

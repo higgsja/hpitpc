@@ -123,6 +123,7 @@
     </dependencies>
 
     <build>
+        <finalName>hpitpc</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
             <plugin>
