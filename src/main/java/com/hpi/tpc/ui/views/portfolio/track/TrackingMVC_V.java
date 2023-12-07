@@ -72,7 +72,7 @@ public class TrackingMVC_V
         this.setupRightVL("Positions");
 
         this.doSelectionListenersAdd();
-        
+
         //view component needs access to the actual view
         this.equitiesGridVL.setTrackingMVCView(this);
     }
@@ -183,8 +183,7 @@ public class TrackingMVC_V
         this.leftVL.setHeight("100%");
 
         // grid refresh data
-        this.equitiesGridVL.getData();
-
+//        this.equitiesGridVL.getData();
         //title
         this.leftVL.add(this.titleFormat(leftVLTitle));
 
@@ -200,21 +199,21 @@ public class TrackingMVC_V
         //set initial values
         this.trackingControlsHL2.getCbOpenOnly().setValue(this.trackingMVCModel.getSelectedTrackOpen());
         this.trackingControlsHL2.getCbActiveOnly().setValue(this.trackingMVCModel.getSelectedTrackActive());
-        this.equitiesGridVL.filterOpen(this.trackingControlsHL2.getCbOpenOnly().getValue());
-        this.equitiesGridVL.filterActive(this.trackingControlsHL2.getCbActiveOnly().getValue());
+//        this.equitiesGridVL.filterOpen(this.trackingControlsHL2.getCbOpenOnly().getValue());
+//        this.equitiesGridVL.filterActive(this.trackingControlsHL2.getCbActiveOnly().getValue());
 
         //grid editor
         this.editor = this.trackingMVCModel.getEquitiesGrid().getEditor();
         this.doEditor();
 
         //apply filters
-        this.equitiesGridVL.filterSector(this.trackingMVCModel.getSelectedSectorId());
+//        this.equitiesGridVL.filterSector(this.trackingMVCModel.getSelectedSectorId());
 
         //establish filter listener
         this.listeners.add(this.trackingMVCModel.getEquitiesGrid().addItemClickListener(event ->
         {
             this.statusHL.getLabelStatus().setText("");
-            
+
             ClientEquityModel cem = (ClientEquityModel) event.getItem();
             this.trackingPositionGridVL.filterEquity(this.trackingMVCModel.getSelectedSectorId(), cem.getTicker());
         }));
@@ -522,7 +521,7 @@ public class TrackingMVC_V
 
         this.rightVL.add(this.trackingPositionGridVL);
 
-        this.trackingPositionGridVL.getData();
+//        this.trackingPositionGridVL.getData();
     }
 
     @Override
@@ -535,6 +534,14 @@ public class TrackingMVC_V
         {
             this.mainLayout.setDrawerOpened(false);
         }
+
+        this.equitiesGridVL.getData();
+        this.trackingPositionGridVL.getData();
+
+        this.equitiesGridVL.filterOpen(this.trackingControlsHL2.getCbOpenOnly().getValue());
+        this.equitiesGridVL.filterActive(this.trackingControlsHL2.getCbActiveOnly().getValue());
+        
+                this.equitiesGridVL.filterSector(this.trackingMVCModel.getSelectedSectorId());
     }
 
     @Override

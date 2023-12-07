@@ -80,7 +80,7 @@ public class EquitiesGridVL
     public void filterSector(Integer clientSectorId)
     {
         this.dataProvider.clearFilters();
-//        this.selectedClientSectorId = clientSectorId;
+
         this.trackingMVCModel.setSelectedSectorId(clientSectorId);
 
         //todo: if -1 then all
