@@ -1,0 +1,22 @@
+https://sites.google.com/site/easylinuxtipsproject/ssd
+
+
+Need to read again
+https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model#The_Greeks
+
+VBA
+http://www.ronakke.com/Black-Scholes-Pricing-and-Greeks-VBA.html
+
+CPP
+http://www.math.rutgers.edu/courses/612/GradesSpring2007/SHI,%20MING/1/HW1_2.cpp
+
+Base BS
+http://finance.bi.no/~bernt/gcc_prog/recipes/recipes/node7.html#SECTION00721000000000000000
+
+Extending BS for dividends
+http://finance.bi.no/~bernt/gcc_prog/recipes/recipes/node9.html#SECTION00921000000000000000
+
+option pricing with binomial approximations
+http://finance.bi.no/~bernt/gcc_prog/recipes/recipes/node10.html
+
+

@@ -1,0 +1,41 @@
+.holdingsVL{
+    /*background-color: lightblue;*/
+    padding: 0px 3px 5px 3px;
+    margin: 8px 0px 0px 0px;
+}
+
+.holdingsGridVL{
+    /*background-color: blue;*/
+    margin: 8px 0px 0px 0px;
+    padding: 0px 0px 5px 0px;
+}
+
+.trackingControlsHL1,
+.trackingControlsHL2,
+.trackingPanelSectorsHL,
+.trackingControlsBtnsHL,
+.trackingControlsSectorTgtPctHL,
+.trackingControlsChkBoxesHL,
+.trackingControlsStatusHL
+{
+    /*background-color: lightskyblue;*/
+    padding: 0px;
+    margin: 0px 0px 0px 16px;
+}
+
+.trackingControlsStatusLabel{
+    background-color: goldenrod;
+    color: black;    
+}
+
+.trackingPositionsVL{
+    /*background-color: lightblue;*/
+    padding: 8px 3px 5px 3px;
+    margin: 0px 0px 0px 0px;
+}
+
+.trackingPositionsGridVL{
+    /*background-color: lightblue;*/
+    padding: 5px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
