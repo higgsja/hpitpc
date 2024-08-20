@@ -6,6 +6,8 @@
 .classpath
 *.bak*
 *.vbak*
+bundles/
+
 
 *.class
 *.log
