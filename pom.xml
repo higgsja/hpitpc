@@ -7,17 +7,18 @@
     <artifactId>hpitpc</artifactId>
     <name>TPC</name>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
-        <vaadin.version>24.2.5</vaadin.version>
+        <vaadin.version>24.4.8</vaadin.version>
         <tomcat.version>10.1.7</tomcat.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+        <!-- change from 3.1.5 fails -->
         <version>3.1.5</version>
     </parent>
 
@@ -44,20 +45,33 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.appreciated</groupId>
             <artifactId>apexcharts</artifactId>
             <version>24.2.1</version>
-        </dependency>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.github.appreciated/apexcharts -->
         <dependency>
+            <groupId>com.github.appreciated</groupId>
+            <artifactId>apexcharts</artifactId>
+            <version>24.0.2</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>com.flowingcode.vaadin.addons</groupId>
             <artifactId>twincolgrid</artifactId>
             <version>24.2.1</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.flowingcode.vaadin.addons/twincolgrid -->
+        <dependency>
+            <groupId>com.flowingcode.vaadin.addons</groupId>
+            <artifactId>twincolgrid</artifactId>
+            <version>2.9.5</version>
         </dependency>
+
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>3.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -66,7 +80,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>jakarta.persistence</groupId>
