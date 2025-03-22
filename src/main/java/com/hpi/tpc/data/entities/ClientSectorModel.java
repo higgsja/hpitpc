@@ -2,7 +2,6 @@ package com.hpi.tpc.data.entities;
 
 import com.hpi.tpc.app.security.*;
 import lombok.*;
-import lombok.Builder;
 
 @EqualsAndHashCode
 @Builder

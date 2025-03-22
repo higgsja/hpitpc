@@ -17,9 +17,9 @@ public class ActionModel {
     public static final Integer ACTIONS_OTHER = 5;
     public static final Integer ACTIONS_HOLD = 6;
 
-    private final Integer kVal;
-    private final String action;
-    private final Integer active;
+    private Integer kVal;
+    private String action;
+    private Integer active;
 
     static {
         ACTION_LIST = new ArrayList<>();

@@ -1,9 +1,9 @@
 package com.hpi.tpc.data.entities;
 
+import lombok.*;
 /*
  * last: Jul 2020
  */
-import lombok.*;
 
 @AllArgsConstructor
 @Getter @Setter
