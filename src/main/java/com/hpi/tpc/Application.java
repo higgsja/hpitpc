@@ -6,6 +6,7 @@ import com.vaadin.flow.shared.communication.*;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.*;
 
 /**
@@ -21,8 +22,14 @@ import org.springframework.boot.web.servlet.support.*;
 @Push(value = PushMode.AUTOMATIC)
 public class Application 
     extends SpringBootServletInitializer
-    implements AppShellConfigurator {
+    implements AppShellConfigurator 
+{
 
+    @Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Application.class);
+	}
+    
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

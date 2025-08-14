@@ -1,7 +1,6 @@
 package com.hpi.tpc.ui.views.baseClass;
 
 import com.hpi.tpc.prefs.*;
-import com.hpi.tpc.services.*;
 import com.hpi.tpc.ui.views.main.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.html.*;

@@ -32,12 +32,13 @@ import org.springframework.stereotype.Component;
 @PermitAll
 @Component
 public class DataValidateStocksControllerFL
-    extends ViewControllerBaseFL //flexLayout
-    implements BeforeEnterObserver
+        extends ViewControllerBaseFL //flexLayout
+        implements BeforeEnterObserver
 {
 
     //data model singleton as used in multiple places
-    @Autowired private DataValidateStocksModel dataValidateStocksModel;
+    @Autowired
+    private DataValidateStocksModel dataValidateStocksModel;
 
     private final DataValidateStocksVL dataValidateStocksVL;
     private final DataValidateStocksTitleVL dataValidateStocksTitleVL;
@@ -53,7 +54,8 @@ public class DataValidateStocksControllerFL
         this.dataValidateStocksVL = new DataValidateStocksVL();
         this.add(this.dataValidateStocksVL);
 
-        this.dataValidateStocksTitleVL = new DataValidateStocksTitleVL("Data Validate");
+        this.dataValidateStocksTitleVL = new DataValidateStocksTitleVL(
+                "Data Validate");
         this.dataValidateStocksVL.add(this.dataValidateStocksTitleVL);
 
         this.dataValidateStocksControlsHL = new DataValidateStocksControlsHL();
@@ -61,18 +63,20 @@ public class DataValidateStocksControllerFL
 
         this.dataValidateStocksGridVL = new DataValidateStocksGridVL();
         this.dataValidateStocksVL.add(this.dataValidateStocksGridVL);
+
+        this.doLayout();
     }
 
     @PostConstruct
     public void construct()
     {
-
         //there are none
         //this.dataValidateStocksModel.getPrefs("DataValidateStocks");
+        this.setCheckboxSkipValue(this.dataValidateStocksModel.
+                        getSelectedSkip());
 
-        this.setCheckboxSkipValue(this.dataValidateStocksModel.getSelectedSkip());
-
-        this.setCheckboxValidatedValue(this.dataValidateStocksModel.getSelectedValidated());
+        this.setCheckboxValidatedValue(this.dataValidateStocksModel.
+                getSelectedValidated());
 
         this.setButtonSaveEnabled(false);
         this.setButtonCancelEnabled(true);
@@ -80,9 +84,147 @@ public class DataValidateStocksControllerFL
         this.setListeners();
     }
 
+    private void doLayout()
+    {
+        this.dataValidateStocksGridVL.getValidateStocksGrid().
+                setColumnReorderingAllowed(true);
+        this.dataValidateStocksGridVL.getValidateStocksGrid().
+                recalculateColumnWidths();
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid().setAllRowsVisible(
+                false);
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addClassName("dataValidateStocksGrid");
+        this.dataValidateStocksGridVL.getValidateStocksGrid().setThemeName(
+                "dense");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addThemeVariants(GridVariant.LUMO_COMPACT);
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .setSelectionMode(Grid.SelectionMode.SINGLE);
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getEquityId)
+                .setHeader("EquityId")
+                .setTextAlign(ColumnTextAlign.CENTER)
+                .setAutoWidth(true)
+                .setFrozen(true)
+                .setSortProperty("equityId");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getDtTrade)
+                .setHeader("Trade Date")
+                .setTextAlign(ColumnTextAlign.CENTER)
+                .setAutoWidth(true)
+                .setSortProperty("tradeDate");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getUnits)
+                .setHeader("Units")
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true)
+                .setSortProperty("units")
+                .setKey("units");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getTradePrice)
+                .setHeader("Trade Price")
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true)
+                .setSortProperty("tradePrice");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getLastPrice)
+                .setHeader("Last Price")
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true)
+                .setSortProperty("lastPrice");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getFiTId)
+                .setHeader("FiTId")
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true)
+                .setSortProperty("fiTId");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addColumn(ValidateStockTransactionModel::getTransactionType)
+                .setHeader("TransType")
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true)
+                .setSortProperty("transType");
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid().
+                addComponentColumn(vstm ->
+                {
+                    Checkbox checkBox = new Checkbox();
+                    checkBox.setValue(vstm.getBSkip());
+                    checkBox.addValueChangeListener(event ->
+                    {
+                        //make the change
+                        vstm.setBSkip(event.getValue());
+                        //inform listeners
+                        this.dataValidateStocksModel.getGridDataProvider().
+                                refreshItem(vstm);
+                        //Enable Save
+                        this.setButtonSaveEnabled(true);
+                    });
+
+                    return checkBox;
+                })
+                .setHeader("Skip")
+                .setAutoWidth(true)
+                .setTextAlign(ColumnTextAlign.CENTER);
+
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addComponentColumn(vstm ->
+                {
+                    Checkbox checkBox = new Checkbox();
+                    checkBox.setValue(vstm.getBValidated());
+                    checkBox.addValueChangeListener(event ->
+                    {
+                        //make the change
+                        vstm.setBValidated(event.getValue());
+                        //inform listeners
+                        this.dataValidateStocksModel.getGridDataProvider().
+                                refreshItem(
+                                        vstm);
+                        //enable Cancel
+                        this.setButtonCancelEnabled(true);
+                    });
+
+                    return checkBox;
+                })
+                .setHeader("Valid")
+                .setAutoWidth(true)
+                .setTextAlign(ColumnTextAlign.CENTER);
+
+        //disallow client changes
+        this.dataValidateStocksGridVL.getValidateStocksGrid()
+                .addComponentColumn(votm ->
+                {
+                    Checkbox checkBox = new Checkbox();
+                    checkBox.setValue(votm.getBComplete());
+
+                    checkBox.setEnabled(false);
+
+                    return checkBox;
+                })
+                .setHeader("Complete")
+                .setAutoWidth(true)
+                .setTextAlign(ColumnTextAlign.CENTER);
+    }
+
     private ComboBox<EditAccountModel> getComboAccounts()
     {
-        return this.dataValidateStocksControlsHL.getValidateStocksComboAccounts();
+        return this.dataValidateStocksControlsHL.
+                getValidateStocksComboAccounts();
     }
 
     private ComboBox<TickerModel> getComboTickers()
@@ -106,7 +248,8 @@ public class DataValidateStocksControllerFL
 //    }
     private Checkbox getCheckboxValidated()
     {
-        return this.dataValidateStocksControlsHL.getValidateStocksCheckboxValidated();
+        return this.dataValidateStocksControlsHL.
+                getValidateStocksCheckboxValidated();
     }
 
     private void setCheckboxValidatedValue(Boolean skip)
@@ -154,7 +297,8 @@ public class DataValidateStocksControllerFL
         super.beforeEnter(event);
 
         //log feature use
-        this.dataValidateStocksModel.serviceTPC.AppTracking("WTPC:Data:Validate:Stocks");
+        this.dataValidateStocksModel.serviceTPC.AppTracking(
+                "WTPC:Data:Validate:Stocks");
 
         //refresh data on every entry
         this.updateDataOnEnter();
@@ -170,7 +314,7 @@ public class DataValidateStocksControllerFL
          */
         this.updateDataOnEnterAccounts();
         this.updateDataOnEnterTickers();
-        
+
         //set the buttons
         this.setButtonSaveEnabled(false);
         this.setButtonCancelEnabled(false);
@@ -185,11 +329,14 @@ public class DataValidateStocksControllerFL
         this.dataValidateStocksModel.updateAccountModels();
 
         //update view
-        this.getComboAccounts().setItems(this.dataValidateStocksModel.getAccountModels());
-        this.getComboAccounts().setValue(this.dataValidateStocksModel.getAccountModels().get(0));
+        this.getComboAccounts().setItems(this.dataValidateStocksModel.
+                getAccountModels());
+        this.getComboAccounts().setValue(this.dataValidateStocksModel.
+                getAccountModels().get(0));
 
         //update the data model
-        this.dataValidateStocksModel.setSelectedAccountModel(this.getComboAccounts().getValue());
+        this.dataValidateStocksModel.setSelectedAccountModel(this.
+                getComboAccounts().getValue());
     }
 
     private void updateDataOnEnterTickers()
@@ -201,11 +348,15 @@ public class DataValidateStocksControllerFL
         this.dataValidateStocksModel.updateTickerModels();
 
         //update view
-        this.getComboTickers().setItems(this.dataValidateStocksModel.getTickerModels());
-        this.getComboTickers().setValue(this.dataValidateStocksModel.getTickerModels().get(0));
+        this.getComboTickers().setItems(this.dataValidateStocksModel.
+                getTickerModels());
+        //set the ticker in the combobox
+        this.getComboTickers().setValue(this.dataValidateStocksModel.
+                getTickerModels().get(0));
 
         //update the data model
-        this.dataValidateStocksModel.setSelectedTickerModel(this.getComboTickers().getValue());
+        this.dataValidateStocksModel.setSelectedTickerModel(this.
+                getComboTickers().getValue());
     }
 
     /**
@@ -220,10 +371,11 @@ public class DataValidateStocksControllerFL
         unitsTotal = 0.0;
 
         if (this.dataValidateStocksModel.getSelectedAccountModel() == null
-            || this.dataValidateStocksModel.getSelectedTickerModel() == null)
+                || this.dataValidateStocksModel.getSelectedTickerModel() == null)
         {
             //no update until both lists are complete with a selection
-            //this is an issue on entering as each is populated independently and fires the onChange
+            //this is an issue on entering as each is populated independently 
+            // and fires the onChange
             return;
         }
 
@@ -234,11 +386,13 @@ public class DataValidateStocksControllerFL
 
         this.dataValidateStocksModel.updateGridData();
 
-        this.getGrid().setDataProvider(this.dataValidateStocksModel.getGridDataProvider());
+        this.getGrid().setDataProvider(this.dataValidateStocksModel.
+                getGridDataProvider());
         this.setGridDataProviderListener();
 
         //set the totals
-        iterator = this.dataValidateStocksModel.getGridDataProvider().getItems().iterator();
+        iterator = this.dataValidateStocksModel.getGridDataProvider().getItems().
+                iterator();
 
         //exclude skips from the total
         //todo: need to change to account for filtering
@@ -259,29 +413,31 @@ public class DataValidateStocksControllerFL
     private void setListeners()
     {
         this.getComboAccounts().addValueChangeListener(
-            vcEvent ->
+                vcEvent ->
         {
-            this.dataValidateStocksModel.setSelectedAccountModel((vcEvent.getValue()));
+            this.dataValidateStocksModel.setSelectedAccountModel((vcEvent.
+                    getValue()));
 
             this.updateGridOnChange();
         });
 
         this.getComboTickers().addValueChangeListener(
-            vcEvent ->
+                vcEvent ->
         {
-            this.dataValidateStocksModel.setSelectedTickerModel(vcEvent.getValue());
+            this.dataValidateStocksModel.setSelectedTickerModel(vcEvent.
+                    getValue());
 
             this.updateGridOnChange();
         });
 
         this.getCheckboxSkip().addValueChangeListener(
-            vcEvent ->
+                vcEvent ->
         {
             this.dataValidateStocksModel.filterChange(vcEvent.getValue(), null);
         });
 
         this.getCheckboxValidated().addValueChangeListener(
-            vcEvent ->
+                vcEvent ->
         {
             this.dataValidateStocksModel.filterChange(null, vcEvent.getValue());
         });
@@ -299,14 +455,14 @@ public class DataValidateStocksControllerFL
         }
 
         this.dataProviderListener = this.dataValidateStocksModel
-            .getGridDataProvider().addDataProviderListener(dataEvent ->
-            {
-                //only enable if not a simple filter change in data provider
-                if (!this.dataValidateStocksModel.getBInFilterChange())
+                .getGridDataProvider().addDataProviderListener(dataEvent ->
                 {
-                    this.getButtonSave().setEnabled(true);
-                }
-            });
+                    //only enable if not a simple filter change in data provider
+                    if (!this.dataValidateStocksModel.getBInFilterChange())
+                    {
+                        this.getButtonSave().setEnabled(true);
+                    }
+                });
     }
 
     private void doCancel()
@@ -324,7 +480,7 @@ public class DataValidateStocksControllerFL
          * after save, pull from database and reset grid to be sure have the right data
          */
         this.updateGridOnChange();
-        
+
         //fix buttons
         this.getButtonSave().setEnabled(false);
         this.getButtonCancel().setEnabled(false);
