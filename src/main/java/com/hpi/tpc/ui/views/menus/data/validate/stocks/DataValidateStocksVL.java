@@ -1,10 +1,9 @@
 package com.hpi.tpc.ui.views.menus.data.validate.stocks;
 
-import com.hpi.tpc.ui.views.baseClass.ViewBaseHL;
-import com.hpi.tpc.ui.views.baseClass.*;
+import com.hpi.tpc.ui.views.baseClass.ViewBaseVL;
 
 public class DataValidateStocksVL
-    extends ViewBaseHL
+    extends ViewBaseVL
 {
 
     public DataValidateStocksVL()

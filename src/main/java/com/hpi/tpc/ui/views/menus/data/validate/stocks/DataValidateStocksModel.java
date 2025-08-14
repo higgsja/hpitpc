@@ -5,6 +5,7 @@ import com.hpi.tpc.ui.views.baseClass.*;
 import com.vaadin.flow.data.provider.*;
 import java.util.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.*;
  * responds to requests from View and instructions from Controller
  */
 @Component
+//@UIScope
 public class DataValidateStocksModel
     extends MVCModelBase
 {
@@ -37,7 +39,7 @@ public class DataValidateStocksModel
 
     public DataValidateStocksModel()
     {
-        this.dbList = new ArrayList<>();
+            this.dbList = new ArrayList<>();
     }
 
     public void updateAccountModels()

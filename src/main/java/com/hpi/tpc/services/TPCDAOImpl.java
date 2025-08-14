@@ -391,6 +391,9 @@ public class TPCDAOImpl
     public synchronized List<TickerModel> getTickerModels(
         EditAccountModel accountModel)
     {
+        //incredibly slow
+        //Called from both ValidateOption and Validate Stocks, why?
+        // why is this using ValidateOptionTransactionModel
         return jdbcTemplate.query(String.format(
             ValidateOptionTransactionModel.SQL_TICKERS,
             accountModel.getDbAcctId(),
