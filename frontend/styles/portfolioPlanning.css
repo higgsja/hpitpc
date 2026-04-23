@@ -1,0 +1,109 @@
+.planningContentFL{
+    /*PlanMVCView flexbox*/
+    /*background-color: lightcoral;*/
+    /*height: 100%;*/
+    margin-top: 8px;
+}
+
+.planningContentSectors{
+    /*background-color: lightgreen;*/
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+}
+
+.planningContentControls {
+    /*background-color: lightgray;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px; 
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.planningContentControlsBtns {
+    /*background-color: lightblue;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;     
+}
+
+.planningContentControlsChkBoxes{
+    /*background-color: lightyellow;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 15px;
+}
+
+.planningContentSectorsStatus {
+    /*background-color: lightpink;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.planningContentSectorsTableVL{
+    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.planningContentSectorsTable {
+    /*background-color: lightyellow;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.planningContentCharts {
+    /*background-color: gray;*/
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    
+}
+
+.planningContentSectorsTableGrid{
+    /*display: flex;*/
+    /*background-color: lightgoldenrodyellow;*/
+    margin-top: 0;
+    padding: 0 0 0 0;
+    /*flex-direction: row;*/
+}
+
+.planningContentCharts{
+    /*background-color: lightblue;*/
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.planningContentChartsPlan {
+    /*background-color: lightgreen;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;        
+}
+
+.planningContentChartsActual {
+    /*background-color: lightgreen;*/
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;        
+}
+
