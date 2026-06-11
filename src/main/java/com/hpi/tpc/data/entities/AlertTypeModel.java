@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import java.util.*;
 import lombok.*;
@@ -23,7 +24,7 @@ public class AlertTypeModel {
     static {
         ALERT_TYPE_LIST = new ArrayList<>();
         SQL_STRING =
-            "select * from hlhtxc5_dmOfx.NotesTriggerTypeList order by TriggerType";
+            SchemaName.sql("select * from hlhtxc5_dmOfx.NotesTriggerTypeList order by TriggerType");
     }
 
     @Override

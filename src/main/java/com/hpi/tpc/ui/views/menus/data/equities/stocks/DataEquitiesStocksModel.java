@@ -1,4 +1,5 @@
 package com.hpi.tpc.ui.views.menus.data.equities.stocks;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.ui.views.menus.data.Attribute;
 import com.flowingcode.vaadin.addons.twincolgrid.*;
@@ -87,7 +88,7 @@ public class DataEquitiesStocksModel
         }
 
         //get full list of attributes without selected
-        String sql = "select KeyValue from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = 0 and KeyId = 'DataEquitiesStocksColumns';";
+        String sql = SchemaName.sql("select KeyValue from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = 0 and KeyId = 'DataEquitiesStocksColumns';");
         rs = jdbcTemplate.queryForRowSet(sql);
 
         while (rs.next())

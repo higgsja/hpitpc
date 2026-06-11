@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -12,10 +13,10 @@ import lombok.*;
 public class FIFOClosedTransactionModel
 {
     public static final String STOCKS_BY_EQUITYID
-        ="select fct.EquityId, ca.ClientAcctName, fct.TransactionName, fct.Ticker, fct.DateOpen, fct.DateClose, fct.DateExpire, abs(fct.Units) as Units, fct.PriceOpen, fct.PriceClose, fct.TotalOpen, fct.TotalClose, fct.Gain, fct.GainPct, fct.EquityType, fct.PositionType, fct.TransactionType, fct.Days, ClientAcctName from hlhtxc5_dmOfx.FIFOClosedTransactions as fct, hlhtxc5_dmOfx.ClientAccts as ca where fct.JoomlaId = ca.JoomlaId and fct.DMAcctId = ca.DMAcctId and fct.EquityId = '%s' and fct.DateClose = '%s' and fct.JoomlaId = '%s' order by fct.DateClose desc, fct.EquityId asc;";
+        =SchemaName.sql("select fct.EquityId, ca.ClientAcctName, fct.TransactionName, fct.Ticker, fct.DateOpen, fct.DateClose, fct.DateExpire, abs(fct.Units) as Units, fct.PriceOpen, fct.PriceClose, fct.TotalOpen, fct.TotalClose, fct.Gain, fct.GainPct, fct.EquityType, fct.PositionType, fct.TransactionType, fct.Days, ClientAcctName from hlhtxc5_dmOfx.FIFOClosedTransactions as fct, hlhtxc5_dmOfx.ClientAccts as ca where fct.JoomlaId = ca.JoomlaId and fct.DMAcctId = ca.DMAcctId and fct.EquityId = '%s' and fct.DateClose = '%s' and fct.JoomlaId = '%s' order by fct.DateClose desc, fct.EquityId asc;");
     
     public static final String OPTIONS_BY_EQUITYID
-    = "select pct.EquityId, ca.ClientAcctName, fct.TransactionName, fct.Ticker, fct.DateOpen, fct.DateClose, fct.DateExpire, abs(fct.Units) as Units, fct.PriceOpen, fct.PriceClose, fct.TotalOpen, fct.TotalClose, fct.Gain, fct.GainPct, fct.EquityType, fct.PositionType, fct.TransactionType, fct.Days, ClientAcctName from hlhtxc5_dmOfx.PositionsClosedTransactions as pct, hlhtxc5_dmOfx.FIFOClosedTransactions as fct, hlhtxc5_dmOfx.ClientAccts as ca where fct.EquityId = pct.EquityId and fct.JoomlaId = ca.JoomlaId and fct.JoomlaId = pct.JoomlaId and fct.EquityId = pct.EquityId and fct.DMAcctId = ca.DMAcctId and pct.PositionId = '%s' and fct.JoomlaId = '%s' order by fct.DateClose desc, pct.EquityId asc";
+    = SchemaName.sql("select pct.EquityId, ca.ClientAcctName, fct.TransactionName, fct.Ticker, fct.DateOpen, fct.DateClose, fct.DateExpire, abs(fct.Units) as Units, fct.PriceOpen, fct.PriceClose, fct.TotalOpen, fct.TotalClose, fct.Gain, fct.GainPct, fct.EquityType, fct.PositionType, fct.TransactionType, fct.Days, ClientAcctName from hlhtxc5_dmOfx.PositionsClosedTransactions as pct, hlhtxc5_dmOfx.FIFOClosedTransactions as fct, hlhtxc5_dmOfx.ClientAccts as ca where fct.EquityId = pct.EquityId and fct.JoomlaId = ca.JoomlaId and fct.JoomlaId = pct.JoomlaId and fct.EquityId = pct.EquityId and fct.DMAcctId = ca.DMAcctId and pct.PositionId = '%s' and fct.JoomlaId = '%s' order by fct.DateClose desc, pct.EquityId asc");
     
     //do not store clientSectorId here as it can change; get it from ClientEquityAttributes as required
     private Integer dmAcctId;

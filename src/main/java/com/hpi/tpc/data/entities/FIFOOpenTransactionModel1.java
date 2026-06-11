@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -9,10 +10,10 @@ public class FIFOOpenTransactionModel1
 {
 
     public static final String GET_STOCK_BY_TICKER_DATEOPEN_JOOMLAID
-        = "select fot.DmAcctId, fot.JoomlaId, fot.Ticker, fot.EquityId, fot.TransactionName, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, fot.PriceOpen, fot.PriceClose, fot.Days, fot.MktVal + fot.TotalOpen as Gain, (100 * (fot.MktVal + fot.TotalOpen) / abs(fot.TotalOpen)) as GainPct, EquityType, PositionType, TransactionType, a2.ClientAcctName from hlhtxc5_dmOfx.FIFOOpenTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.EquityType = 'stock' and fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and fot.EquityId <> 'cash' and fot.Ticker = '%s' and fot.JoomlaId = '%s' order by fot.DateOpen desc, fot.DmAcctId;";
+        = SchemaName.sql("select fot.DmAcctId, fot.JoomlaId, fot.Ticker, fot.EquityId, fot.TransactionName, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, fot.PriceOpen, fot.PriceClose, fot.Days, fot.MktVal + fot.TotalOpen as Gain, (100 * (fot.MktVal + fot.TotalOpen) / abs(fot.TotalOpen)) as GainPct, EquityType, PositionType, TransactionType, a2.ClientAcctName from hlhtxc5_dmOfx.FIFOOpenTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.EquityType = 'stock' and fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and fot.EquityId <> 'cash' and fot.Ticker = '%s' and fot.JoomlaId = '%s' order by fot.DateOpen desc, fot.DmAcctId;");
     
 public static final String GET_OPTION_BY_EQUITYID_DATEOPEN_JOOMLAID
-        = "select fot.DmAcctId, fot.JoomlaId, fot.Ticker, fot.EquityId, fot.TransactionName, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, fot.PriceOpen, fot.PriceClose, fot.Days, fot.MktVal + fot.TotalOpen as Gain, (100 * (fot.MktVal + fot.TotalOpen) / abs(fot.TotalOpen)) as GainPct, EquityType, PositionType, TransactionType, a2.ClientAcctName from hlhtxc5_dmOfx.FIFOOpenTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.EquityType = 'option' and fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and EquityId = '%s' and fot.JoomlaId = '%s' order by fot.DateOpen desc, fot.DmAcctId;";
+        = SchemaName.sql("select fot.DmAcctId, fot.JoomlaId, fot.Ticker, fot.EquityId, fot.TransactionName, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, fot.PriceOpen, fot.PriceClose, fot.Days, fot.MktVal + fot.TotalOpen as Gain, (100 * (fot.MktVal + fot.TotalOpen) / abs(fot.TotalOpen)) as GainPct, EquityType, PositionType, TransactionType, a2.ClientAcctName from hlhtxc5_dmOfx.FIFOOpenTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.EquityType = 'option' and fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and EquityId = '%s' and fot.JoomlaId = '%s' order by fot.DateOpen desc, fot.DmAcctId;");
 
     private final Integer dmAcctId;
     private final Integer joomlaId;

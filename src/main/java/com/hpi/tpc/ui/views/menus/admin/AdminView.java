@@ -1,4 +1,5 @@
 package com.hpi.tpc.ui.views.menus.admin;
+import com.hpi.tpc.SchemaName;
 
 import static com.hpi.tpc.AppConst.*;
 import com.hpi.tpc.prefs.*;
@@ -55,7 +56,7 @@ public class AdminView
         Span aSpan;
 
         rowSet = this.jdbcTemplate.queryForRowSet(
-            "select KeyValue from hlhtxc5_dmOfx.TPCHelp where KeyId = 'AdminHelp';");
+            SchemaName.sql("select KeyValue from hlhtxc5_dmOfx.TPCHelp where KeyId = 'AdminHelp';"));
 
         keyValue = "";
         while (rowSet.next()) {

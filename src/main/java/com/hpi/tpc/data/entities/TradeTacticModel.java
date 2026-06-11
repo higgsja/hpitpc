@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import java.time.*;
 import static java.time.temporal.TemporalAdjusters.*;
@@ -23,5 +24,5 @@ public class TradeTacticModel
     }
 
     public static final String TACTICS
-        ="select * from hlhtxc5_dmOfx.TradeTactics tt where tt.TacticId in (select distinct po.TacticId from hlhtxc5_dmOfx.%s as po where if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s) order by tt.TacticName;";
+        =SchemaName.sql("select * from hlhtxc5_dmOfx.TradeTactics tt where tt.TacticId in (select distinct po.TacticId from hlhtxc5_dmOfx.%s as po where if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s) order by tt.TacticName;");
 }

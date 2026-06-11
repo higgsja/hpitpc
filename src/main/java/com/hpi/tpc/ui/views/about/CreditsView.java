@@ -1,4 +1,5 @@
 package com.hpi.tpc.ui.views.about;
+import com.hpi.tpc.SchemaName;
 
 import static com.hpi.tpc.AppConst.*;
 import com.hpi.tpc.prefs.*;
@@ -54,7 +55,7 @@ public class CreditsView
         Span aSpan;
 
         rowSet = this.jdbcTemplate.queryForRowSet(
-            "select KeyValue from hlhtxc5_dmOfx.TPCHelp where KeyId = 'AboutHelp';");
+            SchemaName.sql("select KeyValue from hlhtxc5_dmOfx.TPCHelp where KeyId = 'AboutHelp';"));
 
         keyValue = "";
         while (rowSet.next()) {

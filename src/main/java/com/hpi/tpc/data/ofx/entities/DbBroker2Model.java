@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.ofx.entities;
+import com.hpi.tpc.SchemaName;
 
 /**
  * last: Aug 2020
@@ -30,7 +31,7 @@ public class DbBroker2Model {
     static {
         SQL_DBOFX_BROKERS_GET_ALL = "select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dbOfx.Brokers2;";
         SQL_DBOFX_BROKERS_GET_OFXINSTFID = "select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dbOfx.Brokers2 where OfxInstFId = '%s';";
-        SQL_DBOFX_BROKERS_EXISTS = "select Brokers2.Name, Brokers2.BrokerId, Brokers2.Url, OfxInstFId from hlhtxc5_dbOfx.Brokers2, hlhtxc5_dmOfx.OfxInstitutions where Brokers2.OfxInstFId = OfxInstitutions.FId and Brokers2.OfxInstFid = '%s';";
+        SQL_DBOFX_BROKERS_EXISTS = SchemaName.sql("select Brokers2.Name, Brokers2.BrokerId, Brokers2.Url, OfxInstFId from hlhtxc5_dbOfx.Brokers2, hlhtxc5_dmOfx.OfxInstitutions where Brokers2.OfxInstFId = OfxInstitutions.FId and Brokers2.OfxInstFid = '%s';");
         SQL_DBOFX_BROKERS_INSERT = "insert into hlhtxc5_dbOfx.Brokers2 (Name, Url, OfxInstFId) values('%s', '%s', '%s');";
         SQL_DBOFX_BROKERS_UPDATE = "";
     }

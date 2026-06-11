@@ -1,4 +1,5 @@
 package com.hpi.tpc.ui.views.notes;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.app.security.*;
 import com.hpi.tpc.data.entities.*;
@@ -35,7 +36,7 @@ public class NotesModel
     @Getter @Setter private Boolean isSave;
     @Getter @Setter private Boolean isAdd;
 
-    private String noteQuoteSql = "select ei.Ticker, ei.Company, ulds.`Close`  from hlhtxc5_dmOfx.EquityInfo ei, hlhtxc5_dmOfx.Util_LastDailyStock ulds where ei.Ticker = ulds.EquityId and ei.Ticker  = '%s' limit 1";
+    private String noteQuoteSql = SchemaName.sql("select ei.Ticker, ei.Company, ulds.`Close`  from hlhtxc5_dmOfx.EquityInfo ei, hlhtxc5_dmOfx.Util_LastDailyStock ulds where ei.Ticker = ulds.EquityId and ei.Ticker  = '%s' limit 1");
 
     public NotesModel()
     {

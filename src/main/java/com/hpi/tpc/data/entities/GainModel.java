@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import com.github.appreciated.apexcharts.helper.*;
 import java.util.*;
@@ -8,9 +9,9 @@ import lombok.*;
 public class GainModel
 {
 
-    public static final String SQL_GAINS_BY_TACTIC = "select A.Category, A.Gain, 100 * (A.Gain / abs(A.TotalOpen)) as GainPct from (select tt.TacticName as Category, sum(po.TotalOpen) as TotalOpen, sum(po.TotalClose) as TotalClose, sum(po.Gain) as Gain from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s group by tt.TacticName) as A order by if('%s' = '%%', GainPct, Gain) desc";
+    public static final String SQL_GAINS_BY_TACTIC = SchemaName.sql("select A.Category, A.Gain, 100 * (A.Gain / abs(A.TotalOpen)) as GainPct from (select tt.TacticName as Category, sum(po.TotalOpen) as TotalOpen, sum(po.TotalClose) as TotalClose, sum(po.Gain) as Gain from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s group by tt.TacticName) as A order by if('%s' = '%%', GainPct, Gain) desc");
     
-    public static final String SQL_GAINS_BY_POSITION = "select A.Category, A.Gain, 100 * (A.Gain / abs(A.TotalOpen)) as GainPct from (select po.Ticker as Category, sum(po.TotalOpen) as TotalOpen, sum(po.TotalClose) as TotalClose, sum(po.Gain) as Gain from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s group by po.Ticker) as A order by if('%s' = '%%', GainPct, Gain) desc";
+    public static final String SQL_GAINS_BY_POSITION = SchemaName.sql("select A.Category, A.Gain, 100 * (A.Gain / abs(A.TotalOpen)) as GainPct from (select po.Ticker as Category, sum(po.TotalOpen) as TotalOpen, sum(po.TotalClose) as TotalClose, sum(po.Gain) as Gain from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and JoomlaId = %s group by po.Ticker) as A order by if('%s' = '%%', GainPct, Gain) desc");
     
     public static final String YEAR = " and po.DateClose >= makedate(year(curdate()), 1) ";
 

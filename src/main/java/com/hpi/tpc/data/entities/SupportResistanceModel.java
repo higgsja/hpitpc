@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -13,7 +14,7 @@ public class SupportResistanceModel {
     private final Integer weight;
 
     static {
-        SQL_STRING = "select * from hlhtxc5_dmOfx.SupResDay where JoomlaId = '%s' and EquityId = '%s';";
+        SQL_STRING = SchemaName.sql("select * from hlhtxc5_dmOfx.SupResDay where JoomlaId = '%s' and EquityId = '%s';");
     }
 
     @Override

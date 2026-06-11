@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 /*
@@ -37,7 +38,7 @@ public class EditAccountModel {
 
     static {
         SQL_ALL_ACCOUNTS =
-            "select mAc.BrokerId, mAc.DMAcctId, mAc.DBAcctId, mAc.dmOfxFId, mAc.InvAcctIdFi, mAc.UserId, decode(mAc.Pwd, 'cpt/moc.iph') as Pwd, mAc.ClientAcctName, mAc.Active from hlhtxc5_dbOfx.Accounts as bAc, hlhtxc5_dbOfx.Brokers2 as bBr, hlhtxc5_dmOfx.Accounts2 as mAc where bAc.BrokerId = bBr.BrokerId and bAc.BrokerId = mAc.BrokerId and bAc.AcctId = mAc.DBAcctId and bAc.JoomlaId = mAc.JoomlaId and bAc.JoomlaId = mAc.JoomlaId and bAc.JoomlaId = '%s';";
+            SchemaName.sql("select mAc.BrokerId, mAc.DMAcctId, mAc.DBAcctId, mAc.dmOfxFId, mAc.InvAcctIdFi, mAc.UserId, decode(mAc.Pwd, 'cpt/moc.iph') as Pwd, mAc.ClientAcctName, mAc.Active from hlhtxc5_dbOfx.Accounts as bAc, hlhtxc5_dbOfx.Brokers2 as bBr, hlhtxc5_dmOfx.Accounts2 as mAc where bAc.BrokerId = bBr.BrokerId and bAc.BrokerId = mAc.BrokerId and bAc.AcctId = mAc.DBAcctId and bAc.JoomlaId = mAc.JoomlaId and bAc.JoomlaId = mAc.JoomlaId and bAc.JoomlaId = '%s';");
     }
 
     @Override

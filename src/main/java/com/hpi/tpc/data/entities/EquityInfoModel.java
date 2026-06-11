@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -9,9 +10,9 @@ public class EquityInfoModel
 
     //get current ticker set
     public static final String TICKER
-        = "select distinct Ticker from hlhtxc5_dmOfx.EquityInfo where `Date` > date_sub(now(), interval 10 day);";
+        = SchemaName.sql("select distinct Ticker from hlhtxc5_dmOfx.EquityInfo where `Date` > date_sub(now(), interval 10 day);");
 
-    public static final String SELECT_DISTINCT_SECTORS = "select distinct Sector from hlhtxc5_dmOfx.EquityInfo;";
+    public static final String SELECT_DISTINCT_SECTORS = SchemaName.sql("select distinct Sector from hlhtxc5_dmOfx.EquityInfo;");
 
     String ticker;
     String company;

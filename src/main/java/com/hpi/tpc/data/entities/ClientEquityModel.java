@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.app.security.*;
 import lombok.*;
@@ -40,15 +41,15 @@ public class ClientEquityModel
     public static final int CHANGE_NEW = 2;
 
     static {
-        SQL_SELECT_ALL_EQUITIES_JOOMLAID_ORDER_TICKER = "select cea.Ticker, ei.Company, csl.ClientSectorId, CSecShort, cea.Active, cea.Comment, cea.JoomlaId, TickerIEX, cea.TgtPct as TgtPct, cea.AnalystTgt, cea.StkPrice, cea.TgtLocked, cea.ActPct from hlhtxc5_dmOfx.ClientEquityAttributes as cea, hlhtxc5_dmOfx.ClientSectorList as csl, (select distinct Ticker, Company from hlhtxc5_dmOfx.EquityInfo where `Date` > date_sub(now(), interval 2 day)) as ei where cea.ClientSectorId = csl.ClientSectorId and cea.JoomlaId = csl.JoomlaId and cea.JoomlaId = '%s' and ei.Ticker = cea.Ticker order by Ticker asc";
+        SQL_SELECT_ALL_EQUITIES_JOOMLAID_ORDER_TICKER = SchemaName.sql("select cea.Ticker, ei.Company, csl.ClientSectorId, CSecShort, cea.Active, cea.Comment, cea.JoomlaId, TickerIEX, cea.TgtPct as TgtPct, cea.AnalystTgt, cea.StkPrice, cea.TgtLocked, cea.ActPct from hlhtxc5_dmOfx.ClientEquityAttributes as cea, hlhtxc5_dmOfx.ClientSectorList as csl, (select distinct Ticker, Company from hlhtxc5_dmOfx.EquityInfo where `Date` > date_sub(now(), interval 2 day)) as ei where cea.ClientSectorId = csl.ClientSectorId and cea.JoomlaId = csl.JoomlaId and cea.JoomlaId = '%s' and ei.Ticker = cea.Ticker order by Ticker asc");
             
         SQLINSERT =
-            "insert into hlhtxc5_dmOfx.ClientEquityAttributes (JoomlaId, Ticker, TickerIEX, Active, ClientSectorId, TgtPct, AnalystTgt, StkPrice, Comment, TgtLocked, ActPct) values (";
+            SchemaName.sql("insert into hlhtxc5_dmOfx.ClientEquityAttributes (JoomlaId, Ticker, TickerIEX, Active, ClientSectorId, TgtPct, AnalystTgt, StkPrice, Comment, TgtLocked, ActPct) values (");
 
         SQL_UPDATE_ALLOCATION =
-            "update hlhtxc5_dmOfx.ClientEquityAttributes set Active = '%s', TgtPct = '%s', Comment = '%s', TgtLocked = '%s' where JoomlaId = '%s' and Ticker = '%s'";
+            SchemaName.sql("update hlhtxc5_dmOfx.ClientEquityAttributes set Active = '%s', TgtPct = '%s', Comment = '%s', TgtLocked = '%s' where JoomlaId = '%s' and Ticker = '%s'");
 
-        SQL_UPDATE = "update hlhtxc5_dmOfx.ClientEquityAttributes set ";
+        SQL_UPDATE = SchemaName.sql("update hlhtxc5_dmOfx.ClientEquityAttributes set ");
     }
 
     public ClientEquityModel() {

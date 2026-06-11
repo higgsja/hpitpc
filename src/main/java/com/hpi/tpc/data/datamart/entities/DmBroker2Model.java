@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.datamart.entities;
+import com.hpi.tpc.SchemaName;
 
 /**
  * last: Aug 2020
@@ -27,11 +28,11 @@ public class DmBroker2Model {
 
     static {
         SQL_DMOFX_BROKERS_GET_ALL =
-            "select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dmOfx.Brokers2;";
+            SchemaName.sql("select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dmOfx.Brokers2;");
         SQL_DMOFX_BROKERS_EXISTS =
-            "select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dmOfx.Brokers2 as dmBrokers where ofxInstFId = '%s';";
+            SchemaName.sql("select BrokerId, Name, Url, OfxInstFId from hlhtxc5_dmOfx.Brokers2 as dmBrokers where ofxInstFId = '%s';");
         SQL_DMOFX_BROKERS_INSERT =
-            "insert into hlhtxc5_dmOfx.Brokers2 (BrokerId, Name, Url, OfxInstFId)  values ('%s', '%s', '%s', '%s');";
+            SchemaName.sql("insert into hlhtxc5_dmOfx.Brokers2 (BrokerId, Name, Url, OfxInstFId)  values ('%s', '%s', '%s', '%s');");
     }
 
     @Override

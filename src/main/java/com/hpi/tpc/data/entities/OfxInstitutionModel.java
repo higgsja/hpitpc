@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 /*
  * This is a global model for data shared by all on the OFX institutions
@@ -38,16 +39,16 @@ public class OfxInstitutionModel {
 
     static {
         SQL_ALL_INSTITUTIONS =
-            "select Name, FId, Org, BrokerId, Url, OfxFail, SslFail, LastOfxValidation, LastSslValidation, Profile from hlhtxc5_dmOfx.OfxInstitutions order by Name;";
+            SchemaName.sql("select Name, FId, Org, BrokerId, Url, OfxFail, SslFail, LastOfxValidation, LastSslValidation, Profile from hlhtxc5_dmOfx.OfxInstitutions order by Name;");
         
         SQL_CLIENT_INSTITUTIONS =
-            "select distinct ofxInst.Name, Accts.dmOfxFId as FId, ofxInst.Org, ofxInst.BrokerId, ofxInst.Url, ofxInst.OfxFail, ofxInst.SslFail, ofxInst.LastOfxValidation, ofxInst.LastSslValidation, ofxInst.Profile from hlhtxc5_dmOfx.OfxInstitutions as ofxInst, hlhtxc5_dmOfx.Accounts2 as Accts where Accts.dmOfxFId = ofxInst.FId and Accts.JoomlaId = '%s' order by ofxInst.Name";
+            SchemaName.sql("select distinct ofxInst.Name, Accts.dmOfxFId as FId, ofxInst.Org, ofxInst.BrokerId, ofxInst.Url, ofxInst.OfxFail, ofxInst.SslFail, ofxInst.LastOfxValidation, ofxInst.LastSslValidation, ofxInst.Profile from hlhtxc5_dmOfx.OfxInstitutions as ofxInst, hlhtxc5_dmOfx.Accounts2 as Accts where Accts.dmOfxFId = ofxInst.FId and Accts.JoomlaId = '%s' order by ofxInst.Name");
         
-        SQL_INSERT = "insert into hlhtxc5_dmOfx.OfxInstitutions (Name, FId, Org, BrokerId, Url, OfxFail, SSlFail, LastOfxValidation, LastSslValidation) values (";
+        SQL_INSERT = SchemaName.sql("insert into hlhtxc5_dmOfx.OfxInstitutions (Name, FId, Org, BrokerId, Url, OfxFail, SSlFail, LastOfxValidation, LastSslValidation) values (");
         
         SQL_UPSERT = " on duplicate key update Name = \"%s\", FId = '%s', Org = \"%s\", BrokerId = \"%s\", Url = '%s', OfxFail = '%s', SSLFail = '%s', LastOfxValidation = '%s', LastSslValidation = '%s';";
         
-        SQL_UPDATE = "update hlhtxc5_dmOfx.OfxInstitutions set ";
+        SQL_UPDATE = SchemaName.sql("update hlhtxc5_dmOfx.OfxInstitutions set ");
         
         SQL_GETALL = "SELECT * FROM `OfxInstitutions` order by Name;";
         

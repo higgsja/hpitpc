@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import java.time.*;
 import java.time.temporal.*;
@@ -20,12 +21,12 @@ public class PositionModel
 
     //combined open and closed positions
     public static final String SQL_1YR_ALL_OPEN_CLOSE_POSITIONS
-        = "select * from (select 1 as Rank, po.PositionId, po.JoomlaId, cea.ClientSectorId, po.Ticker, po.EquityId, po.PositionName, po.TacticId, Units, abs(po.PriceOpen) as PriceOpen, abs(po.Price) as Price, po.GainPct, DateOpen, DateClose, DateOpen as `Date`, Days, po.Gain, PositionType, EquityType from hlhtxc5_dmOfx.PositionsOpen as po, hlhtxc5_dmOfx.ClientEquityAttributes as cea where po.JoomlaId = cea.JoomlaId and po.Ticker = cea.Ticker and po.JoomlaId = '%s') as a union all select * from (select 2 as Rank, pc.PositionId, pc.JoomlaId, cea.ClientSectorId, pc.Ticker, pc.EquityId, PositionName, TacticId, abs(Units) as Units, abs(pc.PriceOpen) as PriceOpen, abs(pc.Price) as Price, GainPct, DateOpen, DateClose, DateClose as `Date`, Days, Gain, PositionType, EquityType from hlhtxc5_dmOfx.PositionsClosed as pc, hlhtxc5_dmOfx.ClientEquityAttributes as cea where pc.JoomlaId = cea.JoomlaId and pc.Ticker = cea.Ticker and DateClose >= date_sub(current_date(), interval 1 year) and pc.JoomlaId = '%s') as b order by Rank, `Date` desc, PositionName asc;";
+        = SchemaName.sql("select * from (select 1 as Rank, po.PositionId, po.JoomlaId, cea.ClientSectorId, po.Ticker, po.EquityId, po.PositionName, po.TacticId, Units, abs(po.PriceOpen) as PriceOpen, abs(po.Price) as Price, po.GainPct, DateOpen, DateClose, DateOpen as `Date`, Days, po.Gain, PositionType, EquityType from hlhtxc5_dmOfx.PositionsOpen as po, hlhtxc5_dmOfx.ClientEquityAttributes as cea where po.JoomlaId = cea.JoomlaId and po.Ticker = cea.Ticker and po.JoomlaId = '%s') as a union all select * from (select 2 as Rank, pc.PositionId, pc.JoomlaId, cea.ClientSectorId, pc.Ticker, pc.EquityId, PositionName, TacticId, abs(Units) as Units, abs(pc.PriceOpen) as PriceOpen, abs(pc.Price) as Price, GainPct, DateOpen, DateClose, DateClose as `Date`, Days, Gain, PositionType, EquityType from hlhtxc5_dmOfx.PositionsClosed as pc, hlhtxc5_dmOfx.ClientEquityAttributes as cea where pc.JoomlaId = cea.JoomlaId and pc.Ticker = cea.Ticker and DateClose >= date_sub(current_date(), interval 1 year) and pc.JoomlaId = '%s') as b order by Rank, `Date` desc, PositionName asc;");
 
     /**
      * return tickers based on selections of position, tactic, timeframe, equityType selections
      */
-    public static final String POSITION_TACTIC_TIMEFRAME_EQUITYTYPE = "select distinct po.Ticker from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if(%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and po.JoomlaId = %s order by po.Ticker;";
+    public static final String POSITION_TACTIC_TIMEFRAME_EQUITYTYPE = SchemaName.sql("select distinct po.Ticker from hlhtxc5_dmOfx.%s as po, hlhtxc5_dmOfx.TradeTactics tt where po.TacticId = tt.TacticId and if('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if(%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and if('%s' = '--All--', po.EquityType like '%%', po.EquityType = '%s') and po.JoomlaId = %s order by po.Ticker;");
 
     //SQL fragments to handle differing timeframes for positions
     public static final String SQL_LAST_YEAR = " and po.DateClose >= '"

@@ -7,6 +7,9 @@
     <artifactId>hpitpc</artifactId>
     <name>TPC</name>
     <version>1.0</version>
+    <!-- Change to war, -->
+    <!-- also change application.properties to local rather than zeus -->
+    <!-- and uncomment 'provided' for tomcat -->
     <packaging>war</packaging>
 
     <properties>

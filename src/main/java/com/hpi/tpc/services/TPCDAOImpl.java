@@ -1,4 +1,5 @@
 package com.hpi.tpc.services;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.app.security.*;
 import com.hpi.tpc.data.entities.*;
@@ -240,7 +241,7 @@ public class TPCDAOImpl
         }
 
         sql
-            = "insert into hlhtxc5_dmOfx.AppTracking (JoomlaId, Action) values ('"
+            = SchemaName.sql("insert into hlhtxc5_dmOfx.AppTracking (JoomlaId, Action) values ('")
             + SecurityUtils.getUserId() + "', '" + value + "');";
 
         jdbcTemplate.execute(sql);
@@ -256,7 +257,7 @@ public class TPCDAOImpl
         expiry = new ArrayList<>();
 
         sql
-            = "select distinct ExpirationDate from hlhtxc5_dmOfx.OptionHistory where Symbol = '%s' and ExpirationDate >= now() and StrikePrice >= '%s' and StrikePrice <= '%s' order by ExpirationDate";
+            = SchemaName.sql("select distinct ExpirationDate from hlhtxc5_dmOfx.OptionHistory where Symbol = '%s' and ExpirationDate >= now() and StrikePrice >= '%s' and StrikePrice <= '%s' order by ExpirationDate");
 
         sql = String.format(sql, underlying, minStrike, maxStrike);
 

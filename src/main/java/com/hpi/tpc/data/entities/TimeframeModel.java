@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -8,7 +9,7 @@ public class TimeframeModel
 {
 
     //only need to know there is one record
-    public static final String SQL_TIMEFRAMES = "select * from hlhtxc5_dmOfx.%s as po where if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and JoomlaId = %s limit 1";;
+    public static final String SQL_TIMEFRAMES = SchemaName.sql("select * from hlhtxc5_dmOfx.%s as po where if ('%s' = '--All--', po.Ticker like '%%', po.Ticker = '%s') and if (%s = -1, po.TacticId like '%%', po.TacticId = %s) %s and JoomlaId = %s limit 1");;
     
     public static final String LAST_YEAR = "Last Year";
     public static final String LAST_QUARTER = "Last Quarter";

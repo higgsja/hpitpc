@@ -1,4 +1,5 @@
 package com.hpi.tpc.ui.views.tools.hedge;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.services.TPCDAOImpl;
 import com.hpi.tpc.prefs.PrefsDAOImpl;
@@ -95,7 +96,7 @@ public class HedgePortfolioInputs
         instrumentList = new ArrayList<>();
         this.instrumentCB = new ComboBox<>();
         this.instrumentCB.setWidth("6em");
-        sql = "select keyDefault from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = 0 and KeyId = ?";
+        sql = SchemaName.sql("select keyDefault from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = 0 and KeyId = ?");
         instrumentList2 = jdbcTemplate.queryForObject(sql, new Object[]
         {
             "HedgeInstrument"

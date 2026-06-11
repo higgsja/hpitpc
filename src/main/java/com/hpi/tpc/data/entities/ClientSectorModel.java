@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import com.hpi.tpc.app.security.*;
 import lombok.*;
@@ -45,33 +46,33 @@ public class ClientSectorModel
 
     static {
         SQL_SELECT_ALL_SECTORS_BY_TGTPCT_D =
-            "select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' order by TgtPct desc;";
+            SchemaName.sql("select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' order by TgtPct desc;");
 
         SQL_SELECT_ALL_SECTORS_BY_NAME =
-                        "select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' order by ClientSector;";
+                        SchemaName.sql("select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' order by ClientSector;");
         
         SQL_SELECT_ALL_ACTIVE_SECTORS_BY_NAME = 
-            "select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' and Active = 'Yes' order by ClientSector;";
+            SchemaName.sql("select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' and Active = 'Yes' order by ClientSector;");
 
         SQL_UPDATE_ALLOCATION =
-            "update hlhtxc5_dmOfx.ClientSectorList set Active = '%s', TgtPct = '%s', Comment = '%s', TgtLocked = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'";
+            SchemaName.sql("update hlhtxc5_dmOfx.ClientSectorList set Active = '%s', TgtPct = '%s', Comment = '%s', TgtLocked = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'");
 
         SQL_SELECT_SECTORS_BY_CSECSHORT_A =
-            "select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' and Active = 'Yes' order by CSecShort;";
+            SchemaName.sql("select JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, round(TgtPct, 1) as TgtPct, Comment, TgtLocked, round(ActPct, 1) as ActPct, MktVal, LMktVal, CustomSector from hlhtxc5_dmOfx.ClientSectorList where JoomlaId = '%s' and Active = 'Yes' order by CSecShort;");
 
         SQL_COUNT_SECTORS_BY_JOOMLAID = "select count(*) from `ClientSectorList` where JoomlaId = '%s'";
 
         SQLINSERT =
-            "insert into hlhtxc5_dmOfx.ClientSectorList (JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, TgtPct, Comment, TgtLocked, ActPct, MktVal, LMktVal, CustomSector) values (";
+            SchemaName.sql("insert into hlhtxc5_dmOfx.ClientSectorList (JoomlaId, ClientSectorId, ClientSector, CSecShort, Active, TgtPct, Comment, TgtLocked, ActPct, MktVal, LMktVal, CustomSector) values (");
 
         SQL_UPDATE_STD_SECTOR =
-            "update hlhtxc5_dmOfx.ClientSectorList set ClientSector = '%s', Comment = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'";
+            SchemaName.sql("update hlhtxc5_dmOfx.ClientSectorList set ClientSector = '%s', Comment = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'");
 
         SQL_UPDATE_CSTM_SECTOR =
-            "update hlhtxc5_dmOfx.ClientSectorList set ClientSector = '%s', CSecShort = '%s', Comment = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'";
+            SchemaName.sql("update hlhtxc5_dmOfx.ClientSectorList set ClientSector = '%s', CSecShort = '%s', Comment = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'");
 
         SQL_SECTORID_FROM_TKR =
-            "select ClientSectorId from ClientSectorList, (select Sector from hlhtxc5_dmOfx.EquityInfo where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo) and Ticker = '%s') as A where JoomlaId = '%s' and ClientSector = A.Sector";
+            SchemaName.sql("select ClientSectorId from ClientSectorList, (select Sector from hlhtxc5_dmOfx.EquityInfo where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo) and Ticker = '%s') as A where JoomlaId = '%s' and ClientSector = A.Sector");
     }
 
     public ClientSectorModel() {

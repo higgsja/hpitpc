@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.datamart.entities;
+import com.hpi.tpc.SchemaName;
 
 import java.util.*;
 import jakarta.persistence.*;
@@ -40,16 +41,16 @@ public class DmAccount2Model1 {
 
     static {
         SQL_DMOFX_ACCOUNTS_ALL =
-            "select DMAcctId, JoomlaId, BrokerId, AcctId, Org, FId, BrokerIdFi, InvAcctIdFi, UserId, Pwd, DmOfxFId from hlhtxc5_dmOfx.Accounts2 where JoomlaId = '%s';";
+            SchemaName.sql("select DMAcctId, JoomlaId, BrokerId, AcctId, Org, FId, BrokerIdFi, InvAcctIdFi, UserId, Pwd, DmOfxFId from hlhtxc5_dmOfx.Accounts2 where JoomlaId = '%s';");
 
         SQL_DMOFX_ACCOUNTS_EXISTS =
-            "select DMAcctId, JoomlaId, BrokerId, DBAcctId, InvAcctIdFi, UserId, Pwd, DmOfxFId, ClientAcctName, Active from hlhtxc5_dmOfx.Accounts2 where DMAcctId = '%s' and BrokerId = '%s' and JoomlaId = '%s';";
+            SchemaName.sql("select DMAcctId, JoomlaId, BrokerId, DBAcctId, InvAcctIdFi, UserId, Pwd, DmOfxFId, ClientAcctName, Active from hlhtxc5_dmOfx.Accounts2 where DMAcctId = '%s' and BrokerId = '%s' and JoomlaId = '%s';");
 
         SQL_DMOFX_ACCOUNTS_INSERT =
-            "insert into hlhtxc5_dmOfx.Accounts2 (JoomlaId, BrokerId, DBAcctId, InvAcctIdFi, UserId, Pwd, DmOfxFId, ClientAcctName, Active) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');";
+            SchemaName.sql("insert into hlhtxc5_dmOfx.Accounts2 (JoomlaId, BrokerId, DBAcctId, InvAcctIdFi, UserId, Pwd, DmOfxFId, ClientAcctName, Active) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');");
 
         SQL_DMOFX_ACCOUNTS_UPDATE =
-            "update hlhtxc5_dmOfx.Accounts2 set InvAcctIdFi = '%s', UserId = '%s', Pwd = encode('%s', 'cpt/moc.iph'), ClientAcctname = '%s', Active = '%s' where DMAcctId = '%s';";
+            SchemaName.sql("update hlhtxc5_dmOfx.Accounts2 set InvAcctIdFi = '%s', UserId = '%s', Pwd = encode('%s', 'cpt/moc.iph'), ClientAcctname = '%s', Active = '%s' where DMAcctId = '%s';");
     }
     
     public Boolean isPersisted(){

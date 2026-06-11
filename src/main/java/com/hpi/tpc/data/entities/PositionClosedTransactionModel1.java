@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import java.util.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import lombok.*;
  * Holds a transaction as one leg of a position
  */
 public class PositionClosedTransactionModel1 {
-     public static final String GET_BY_POSITIONID_JOOMLAID = "select fot.DmAcctId, fot.JoomlaId, fot.PositionId, fot.FiTId, fot.EquityId, fot.TransactionName, fot.Ticker, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, abs(fot.PriceOpen) as PriceOpen, abs(fot.PriceClose) as PriceClose, fot.DateExpire, fot.Days, fot.PositionType, fot.TotalOpen, fot.TotalClose, fot.EquityType, fot.Gain, fot.GainPct, fot.TransactionType, fot.Complete, a2.ClientAcctName from hlhtxc5_dmOfx.PositionsClosedTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and fot.PositionId = %s and fot.JoomlaId = %s order by fot.DateOpen desc, fot.DmAcctId;";
+     public static final String GET_BY_POSITIONID_JOOMLAID = SchemaName.sql("select fot.DmAcctId, fot.JoomlaId, fot.PositionId, fot.FiTId, fot.EquityId, fot.TransactionName, fot.Ticker, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, abs(fot.PriceOpen) as PriceOpen, abs(fot.PriceClose) as PriceClose, fot.DateExpire, fot.Days, fot.PositionType, fot.TotalOpen, fot.TotalClose, fot.EquityType, fot.Gain, fot.GainPct, fot.TransactionType, fot.Complete, a2.ClientAcctName from hlhtxc5_dmOfx.PositionsClosedTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and fot.PositionId = %s and fot.JoomlaId = %s order by fot.DateOpen desc, fot.DmAcctId;");
      
 //     public static final String GET_OPTION_BY_EQUITYID_DATECLOSE_JOOMLAID = "select fot.DmAcctId, fot.JoomlaId, fot.PositionId, fot.FiTId, fot.EquityId, fot.TransactionName, fot.Ticker, fot.DateOpen, fot.DateClose, abs(fot.Units) as Units, abs(fot.PriceOpen), abs(fot.PriceClose), fot.DateExpire, fot.Days, fot.PositionType, fot.TotalOpen, fot.TotalClose, fot.EquityType, fot.Gain, fot.GainPct, fot.TransactionType, fot.Complete, a2.ClientAcctName from hlhtxc5_dmOfx.PositionsClosedTransactions as fot, hlhtxc5_dmOfx.Accounts2 as a2 where fot.EquityType = 'option' and fot.DMAcctId = a2.DMAcctId and fot.JoomlaId = a2.JoomlaId and fot.PositionId = %s and fot.JoomlaId = %s order by fot.DateOpen desc, fot.DmAcctId;";
      

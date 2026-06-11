@@ -1,4 +1,5 @@
 package com.hpi.tpc.data.entities;
+import com.hpi.tpc.SchemaName;
 
 import lombok.*;
 
@@ -14,10 +15,10 @@ public class PrefsModel {
 
     static {
         SQL_GET_LIKE_STRING =
-            "select * from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = '%s' and KeyId like '%s';";
+            SchemaName.sql("select * from hlhtxc5_dmOfx.TPCPreferences where JoomlaId = '%s' and KeyId like '%s';");
         
-        SQL_UPDATE_KEY_STRING = "update hlhtxc5_dmOfx.TPCPreferences set KeyValue = '%s' where JoomlaId = '%s' and KeyId = '%s';";
+        SQL_UPDATE_KEY_STRING = SchemaName.sql("update hlhtxc5_dmOfx.TPCPreferences set KeyValue = '%s' where JoomlaId = '%s' and KeyId = '%s';");
         
-        SQL_INSERT_KEY_STRING = "insert ignore into hlhtxc5_dmOfx.TPCPreferences (JoomlaId, KeyId, KeyValue) values ('%s', '%s', '%s');";
+        SQL_INSERT_KEY_STRING = SchemaName.sql("insert ignore into hlhtxc5_dmOfx.TPCPreferences (JoomlaId, KeyId, KeyValue) values ('%s', '%s', '%s');");
     }
 }
