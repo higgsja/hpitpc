@@ -326,15 +326,6 @@ public class TPCDAOImpl
                 SecurityUtils.getUserId(),
                 accountModel.getDbAcctId(),
                 tickerModel.getTicker(),
-                SecurityUtils.getUserId(),
-                accountModel.getDbAcctId(),
-                tickerModel.getTicker(),
-                SecurityUtils.getUserId(),
-                accountModel.getDbAcctId(),
-                tickerModel.getTicker(),
-                SecurityUtils.getUserId(),
-                accountModel.getDbAcctId(),
-                tickerModel.getTicker(),
                 SecurityUtils.getUserId()),
             new ValidateStockTransactionMapper());
 
@@ -367,12 +358,6 @@ public class TPCDAOImpl
         String sql;
 
         sql = String.format(ValidateOptionTransactionModel.SQL_STRING,
-            accountModel.getDbAcctId(),
-            tickerModel.getTicker(),
-            SecurityUtils.getUserId(),
-            accountModel.getDbAcctId(),
-            tickerModel.getTicker(),
-            SecurityUtils.getUserId(),
             accountModel.getDbAcctId(),
             tickerModel.getTicker(),
             SecurityUtils.getUserId(),
