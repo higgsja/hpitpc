@@ -47,3 +47,6 @@ Going forward: add unit/integration tests for whatever hpitpc code is touched, i
 
 ### 2026-07-10 — `OpenStockFIFO`/`OpenOptionFIFO` column drops (no hpitpc impact)
 TPCCCM/TPCcli dropped 12 dead columns from each of `OpenStockFIFO`/`OpenOptionFIFO` across the Sixth/Seventh/Eighth passes (see TPCCCM/CLAUDE.md), ending with `DateClose`/`PriceClose`/`TotalClose` in the Eighth pass. Confirmed hpitpc has zero references to either table name anywhere in `src` — its JPA layer never reads these two tables directly. No action needed here; noted per the standing rule to check hpitpc before any shared-DB schema change.
+
+### 2026-07-10 — `OpeningStock`/`ClosingStock`/`OpeningOptions`/`ClosingOptions` sided-column drops (no hpitpc impact)
+TPCCCM/TPCcli dropped 12 columns (3 per table) in the "Ninth pass" (see TPCCCM/CLAUDE.md) — the last "inactive side" columns each of these 4 tables carried (e.g. `OpeningStock.DateClose/PriceClose/TotalClose`). `ValidateStockTransactionModel`/`ValidateOptionTransactionModel` (hpitpc's own raw SQL, see above) reference these 4 table names but only ever `union`ed columns already stripped in the 2026-07-09 pass — confirmed zero references to any of the 12 dropped columns anywhere in `hpitpc/src`. No action needed.
