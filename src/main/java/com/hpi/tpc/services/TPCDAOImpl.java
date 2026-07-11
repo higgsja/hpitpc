@@ -247,29 +247,6 @@ public class TPCDAOImpl
         jdbcTemplate.execute(sql);
     }
 
-    public List<String> getOptionExpiry(String underlying,
-        String minStrike, String maxStrike)
-    {
-        String sql;
-        SqlRowSet rowSet;
-        List<String> expiry;
-
-        expiry = new ArrayList<>();
-
-        sql
-            = SchemaName.sql("select distinct ExpirationDate from hlhtxc5_dmOfx.OptionHistory where Symbol = '%s' and ExpirationDate >= now() and StrikePrice >= '%s' and StrikePrice <= '%s' order by ExpirationDate");
-
-        sql = String.format(sql, underlying, minStrike, maxStrike);
-
-        rowSet = jdbcTemplate.queryForRowSet(sql);
-
-        while (rowSet.next())
-        {
-            expiry.add(rowSet.getString("ExpirationDate"));
-        }
-        return expiry;
-    }
-
 //    public List<OHLCVModel> getEquityOHLCVData(String ticker)
 //    {
 //        String sql;

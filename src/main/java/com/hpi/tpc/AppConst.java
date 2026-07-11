@@ -84,9 +84,6 @@ public class AppConst
     public static final String ROUTE_SETUP_ACCOUNTS_VIEW = "AccountsView";
     public static final String ROUTE_SETUP_PREFERENCES = "SetupPrefs";
     public static final String ROUTE_SETUP_VIEW = "SetupView";
-    public static final String ROUTE_TOOLS = "Tools";
-    public static final String ROUTE_TOOLS_HEDGE_PORTFOLIO = "PortfolioHedge";
-    public static final String ROUTE_TOOLS_PREFERENCES = "ToolsPrefs";
     public static final String SETUP_EQUITIES_VIEW = "SetupEquitiesView";
     public static final String SETUP_SECTORS_VIEW = "SetupSectorsView";
 //    public static final String TITLE_COACHING_GAINS = "Gains";
@@ -100,7 +97,6 @@ public class AppConst
     public static final String TITLE_PAGE_ADMIN_DOWNLOAD_OFXHOME = "OFX Home Download";
     public static final String TITLE_PAGE_ADMIN_REFRESH_DATA = "Data Refresh";
 //    public static final String TITLE_PAGE_COACHING = "Coaching";
-    public static final String TITLE_PAGE_HEDGE_PORTFOLIO = "Hedging: Portfolio";
     public static final String TITLE_PAGE_LOGON = "Logon";
     public static final String TITLE_PAGE_LOGOUT = "Logout";
     public static final String TITLE_PAGE_MAIN = "TPC";
@@ -119,12 +115,10 @@ public class AppConst
     public static final String TITLE_TAB_ADMIN_DOWNLOAD_OFXHOME = "OFX Home";
     public static final String TITLE_TAB_ADMIN_DOWNLOAD_OPTIONHISTORY = "Option History";
     public static final String TITLE_TAB_EQUITY = "Equity";
-    public static final String TITLE_TAB_HEDGE = "Hedge";
     public static final String TITLE_TAB_PORTFOLIO = "Portfolio";
     public static final String TITLE_TAB_SECTOR = "Sector";
     public static final String TITLE_TAB_SETUP_ACCOUNTS = "Accounts";
     public static final String TITLE_TAB_SETUP_EQUITIES = "Equities";
     public static final String TITLE_TAB_SETUP_SECTORS = "Sectors";
-    public static final String TITLE_TOOLS_PREFERENCES = "Tools Preferences";
 
 }
