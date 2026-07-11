@@ -59,3 +59,13 @@ hpitpc had two live references to `Util_LastDailyStock` (none to `Util_LastDaily
 - `NotesModel.noteQuoteSql` (`com.hpi.tpc.ui.views.notes`) — a private instance field on a `@UIScope`/`@Component` Vaadin bean, not practical to unit test in isolation; verified directly against the live DB instead of via an automated test
 
 Added `NoteModelTest.sqlGetStringExecutesAgainstDatabase()` (same live-schema-smoke-test pattern as `ValidateStockTransactionModelTest`/`ValidateOptionTransactionModelTest`). `mvn clean compile` and the full test suite pass against the live schema.
+
+### 2026-07-11 — `EquityInfo` pruned to one row per ticker
+Part of the same cleanup as TPCCCM's "Twelfth pass" and TPCcli's equivalent entry — `EquityInfo` no longer retains history; TPCcli's `FinVizController4.pruneEquityInfo()` now prunes it down to one row per ticker on every `--equityInfo` run. hpitpc had three independent readers, each of which already self-limited to "latest row" via a redundant `MAX(Date)` filter — removed as dead weight now that the table itself enforces one row per ticker:
+- `ClientSectorModel.SQL_SECTORID_FROM_TKR` — dropped the `WHERE Date = (select MAX(Date) ...)` clause. This also fixes a latent pre-existing bug: the old filter used a *global* `MAX(Date)` rather than a per-ticker one, which could return the wrong `Sector` if different tickers were last refreshed on different days. Added `ClientSectorModelTest.sqlSectorIdFromTkrExecutesAgainstDatabase()`.
+- `FinVizEquityInfoModel.SQL_GET_LATEST_DATE`/`SQL_GET_LATEST_FILTERED`/`SQL_GET_LATEST_FILTERED_COUNT` (feeds the main equities grid UI) — dropped the same `MAX(Date)` subquery clause from all three. Call-site placeholder counts unchanged (8 for FILTERED, 6 for FILTERED_COUNT). Added `FinVizEquityInfoModelTest` (3 live-schema smoke tests).
+- `NoteModel.SQL_GET_STRING` — dropped the inline `(select * from EquityInfo where Date = (select max(Date) ...)) as ei` subquery in favor of joining `EquityInfo` directly. Existing `NoteModelTest.sqlGetStringExecutesAgainstDatabase()` re-verified, no new test needed.
+
+Deliberately left untouched: `ClientEquityModel`'s 2-day staleness filter (the documented "must be refreshed within 2 days" gotcha above) — orthogonal to retention pruning, would need a separate functional decision.
+
+Live `hlhtxc5_dmOfx.EquityInfo` pruned via SSH from 392,580 rows down to 11,598 (one per ticker) — see TPCCCM/CLAUDE.md "Twelfth pass" for the live-DB DDL detail. hpitpc test suite: 11/11 passing against the live schema.

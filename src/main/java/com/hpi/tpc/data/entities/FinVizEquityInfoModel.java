@@ -31,11 +31,11 @@ public class FinVizEquityInfoModel {
 
     static {
         SQL_GET_LATEST_DATE =
-            SchemaName.sql("select * from hlhtxc5_dmOfx.EquityInfo where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo limit 1) order by Ticker asc;");
-        
-        SQL_GET_LATEST_FILTERED = SchemaName.sql("select * from hlhtxc5_dmOfx.EquityInfo as ei where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo limit 1) and if('%s' = '', ei.Ticker like '%%', ei.Ticker like '%s%%') and if('%s' = '', ei.Sector like '%%', ei.Sector like '%s%%') and if ('%s' = '', ei.Industry like '%%', ei.Industry like '%s%%') order by Ticker asc limit %s, %s;");
-        
-        SQL_GET_LATEST_FILTERED_COUNT = SchemaName.sql("select count(*) from hlhtxc5_dmOfx.EquityInfo as ei where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo limit 1) and if('%s' = '', ei.Ticker like '%%', ei.Ticker like '%s%%') and if('%s' = '', ei.Sector like '%%', ei.Sector like '%s%%') and if ('%s' = '', ei.Industry like '%%', ei.Industry like '%s%%') ;");
+            SchemaName.sql("select * from hlhtxc5_dmOfx.EquityInfo order by Ticker asc;");
+
+        SQL_GET_LATEST_FILTERED = SchemaName.sql("select * from hlhtxc5_dmOfx.EquityInfo as ei where if('%s' = '', ei.Ticker like '%%', ei.Ticker like '%s%%') and if('%s' = '', ei.Sector like '%%', ei.Sector like '%s%%') and if ('%s' = '', ei.Industry like '%%', ei.Industry like '%s%%') order by Ticker asc limit %s, %s;");
+
+        SQL_GET_LATEST_FILTERED_COUNT = SchemaName.sql("select count(*) from hlhtxc5_dmOfx.EquityInfo as ei where if('%s' = '', ei.Ticker like '%%', ei.Ticker like '%s%%') and if('%s' = '', ei.Sector like '%%', ei.Sector like '%s%%') and if ('%s' = '', ei.Industry like '%%', ei.Industry like '%s%%') ;");
 
         FIN_VIZ_MODELS = new ArrayList<>();
         FIN_VIZ_HASH_TABLE = new Hashtable<>();
