@@ -50,3 +50,12 @@ TPCCCM/TPCcli dropped 12 dead columns from each of `OpenStockFIFO`/`OpenOptionFI
 
 ### 2026-07-10 — `OpeningStock`/`ClosingStock`/`OpeningOptions`/`ClosingOptions` sided-column drops (no hpitpc impact)
 TPCCCM/TPCcli dropped 12 columns (3 per table) in the "Ninth pass" (see TPCCCM/CLAUDE.md) — the last "inactive side" columns each of these 4 tables carried (e.g. `OpeningStock.DateClose/PriceClose/TotalClose`). `ValidateStockTransactionModel`/`ValidateOptionTransactionModel` (hpitpc's own raw SQL, see above) reference these 4 table names but only ever `union`ed columns already stripped in the 2026-07-09 pass — confirmed zero references to any of the 12 dropped columns anywhere in `hpitpc/src`. No action needed.
+
+### 2026-07-11 — `Util_LastDailyStock` eliminated; repointed at `EquityHistory`
+Part of the cross-repo removal of `Util_LastDailyStock`/`Util_LastDailyOption` (see TPCCCM/CLAUDE.md "Eleventh pass" and TPCcli/CLAUDE.md "Eleventh cleanup pass" for the full picture). `EquityHistory`/`OptionHistory` are no longer multi-day history tables — TPCcli now prunes each down to one row per ticker/symbol on every daily run, making the separate `Util_Last*` cache tables redundant.
+
+hpitpc had two live references to `Util_LastDailyStock` (none to `Util_LastDailyOption`), both a straightforward table-name + join-key swap (`lds.EquityId`/`ulds.EquityId` → `lds.Ticker`/`ulds.Ticker`; column names `Open`/`High`/`Low`/`Close`/`Volume` are identical on `EquityHistory`):
+- `NoteModel.SQL_GET_STRING` (`com.hpi.tpc.data.entities`) — also removed an already-dead commented-out earlier draft of the same query that referenced the old table
+- `NotesModel.noteQuoteSql` (`com.hpi.tpc.ui.views.notes`) — a private instance field on a `@UIScope`/`@Component` Vaadin bean, not practical to unit test in isolation; verified directly against the live DB instead of via an automated test
+
+Added `NoteModelTest.sqlGetStringExecutesAgainstDatabase()` (same live-schema-smoke-test pattern as `ValidateStockTransactionModelTest`/`ValidateOptionTransactionModelTest`). `mvn clean compile` and the full test suite pass against the live schema.
