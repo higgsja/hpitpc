@@ -247,18 +247,6 @@ public class TPCDAOImpl
         jdbcTemplate.execute(sql);
     }
 
-//    public List<OHLCVModel> getEquityOHLCVData(String ticker)
-//    {
-//        String sql;
-//        SqlRowSet rowSet;
-//        List<OHLCVModel> ohlcvms;
-//
-//        sql = String.format(OHLCVModel.getSQL_DAILY(), ticker);
-//
-//        ohlcvms = jdbcTemplate.query(sql, new OHLCVMapper());
-//
-//        return ohlcvms;
-//    }
     public synchronized List<ClientEquityModel> getClientEquityAttributesModels()
     {
         List<ClientEquityModel> clientEquityAttributesModels;
