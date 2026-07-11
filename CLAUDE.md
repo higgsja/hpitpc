@@ -69,3 +69,14 @@ Part of the same cleanup as TPCCCM's "Twelfth pass" and TPCcli's equivalent entr
 Deliberately left untouched: `ClientEquityModel`'s 2-day staleness filter (the documented "must be refreshed within 2 days" gotcha above) — orthogonal to retention pruning, would need a separate functional decision.
 
 Live `hlhtxc5_dmOfx.EquityInfo` pruned via SSH from 392,580 rows down to 11,598 (one per ticker) — see TPCCCM/CLAUDE.md "Twelfth pass" for the live-DB DDL detail. hpitpc test suite: 11/11 passing against the live schema.
+
+### 2026-07-11 — `EquityHistory` retired in favor of `EquityInfo`, with an easy backout
+Part of the cross-repo removal of `EquityHistory` as a data source (see TPCCCM/CLAUDE.md "Thirteenth pass" and TPCcli/CLAUDE.md "Thirteenth cleanup pass" for the full picture). User's call: eliminate use of `EquityHistory` (Schwab quotes) entirely in favor of `EquityInfo.Price` (FinViz), but keep the change trivially reversible — so `EquityHistory` itself and `StockQuotesSchwabController` (TPCcli) are left untouched; only the readers and the writer's call site were changed.
+
+hpitpc had two independent `EquityHistory` readers, both repointed at `EquityInfo`:
+- `NoteModel.SQL_GET_STRING` — dropped `Open`/`High`/`Low` columns entirely (no `EquityInfo` substitute exists for them, and grep confirmed `NoteModel.getHigh()`/`getLow()` were never read anywhere in the UI beyond the mapper that set them), changed `Close` to source from `ei.Price` and `Volume` from `ei.Volume`, replaced every internal `lds.\`Close\`` reference in the IPrice/PriceChange/PriceChangePct/Gain/GainPct expressions with `ei.Price`, and dropped `EquityHistory` from the query's `FROM`/`WHERE` clauses entirely. Removed the now-unused `high`/`low` fields from `NoteModel` and their setters from `NoteMapper.mapRow()`. Also removed the 20-arg constructor's `high`/`low` parameters (kept the constructor itself — Lombok's class-level `@Builder` needs an explicit all-fields constructor once the class has any other constructor, so this one is load-bearing for `NoteMapper`'s `NoteModel.builder()...build()` call even though nothing calls the constructor directly by name).
+- `NotesModel.noteQuoteSql` — simplified from a 2-table join (`EquityInfo`/`EquityHistory`) down to a single-table `select ... ei.Price as \`Close\` from EquityInfo` query, since `EquityInfo` alone now has everything it needed.
+
+**Backout:** revert these two SQL constants and the `NoteModel`/`NoteMapper` field removals (or discard branch `cleanup/equity-history-retire`) — `EquityHistory` is untouched and still populated by TPCcli's Schwab pipeline once its call site is uncommented (see TPCcli/CLAUDE.md).
+
+hpitpc compiles clean; full test suite passes (existing `NoteModelTest.sqlGetStringExecutesAgainstDatabase()` re-verified against the rewritten SQL, no new test needed since the query shape check was already smoke-test-only).

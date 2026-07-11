@@ -36,7 +36,7 @@ public class NotesModel
     @Getter @Setter private Boolean isSave;
     @Getter @Setter private Boolean isAdd;
 
-    private String noteQuoteSql = SchemaName.sql("select ei.Ticker, ei.Company, ulds.`Close`  from hlhtxc5_dmOfx.EquityInfo ei, hlhtxc5_dmOfx.EquityHistory ulds where ei.Ticker = ulds.Ticker and ei.Ticker  = '%s' limit 1");
+    private String noteQuoteSql = SchemaName.sql("select ei.Ticker, ei.Company, ei.Price as `Close` from hlhtxc5_dmOfx.EquityInfo ei where ei.Ticker = '%s' limit 1");
 
     public NotesModel()
     {
