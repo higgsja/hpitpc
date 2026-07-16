@@ -78,8 +78,6 @@ public class NoteModel
     @NonNull private String trigger;
     @NonNull private String active;
     @NonNull private String dateEntered;
-    private Double high;
-    private Double low;
     private Double close;
     private Double priceChange;
     private String priceChangePct;
@@ -91,8 +89,7 @@ public class NoteModel
     static
     {
 
-        SQL_GET_STRING = SchemaName.sql("select nd.JoomlaId, nd.TStamp, nd.Ticker, nd.Description, nd.Notes, nd.Action, nd.TriggerType, nd.`Trigger`, nd.Active, ei.Company, ei.`MktCap(B)`, ei.50dHi, ei.50dLo, replace(lds.`Open`, ',', '') as Open, replace(lds.High, ',', '') as High, replace(lds.Low, ',', '') as Low, replace(lds.`Close`, ',', '') as Close, if(lds.Volume = null, null, lds.Volume / 1000000) as Volume, nd.`Units`, ei.52wHi, ei.52wLo, replace(if (nd.IPrice = null, lds.`Close`, nd.IPrice), ',', '') as IPrice, if (nd.IPrice = null, 0, lds.`Close` - nd.IPrice) as PriceChange, replace(format(if (nd.IPrice = null, 0, if (IPrice = 0, 0, 100 * (lds.`Close` - nd.IPrice) / nd.IPrice)),2), ',', '') as PriceChangePct, if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if (nd.Action = '2', replace(-nd.Units * (lds.`Close` - nd.IPrice), ',', ''), replace(nd.Units * (lds.`Close` - nd.IPrice), ',', '')))) as Gain, replace(format(if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if(nd.Action='2', -100 * (lds.`Close` - nd.IPrice) / nd.IPrice, 100 * (lds.`Close` - nd.IPrice) / nd.IPrice))),2), ',', '') as GainPct, ei.Sector, ei.Industry, 0 as Beta, replace(ei.PE, ',', '') as PE, replace(ei.FwdPE, ',', '') as FwdPE, ei.PEG, ei.Div, ei.ATR, ei.SMA200, ei.SMA50, ei.SMA20, ei.RSI, ei.AnRec, replace(ei.TgtPrice, ',', '') as TgtPrice, ei.EarnDate, replace(lds.open, ',', '') as open, nd.Active, nd.DateEntered from hlhtxc5_dmOfx.NotesData as nd, hlhtxc5_dmOfx.Util_LastDailyStock as lds, (select * from hlhtxc5_dmOfx.EquityInfo where `Date` = (select max(`Date`) from hlhtxc5_dmOfx.EquityInfo)) as ei where nd.Ticker = lds.EquityId and nd.Ticker = ei.Ticker");
-//            "select nd.JoomlaId, nd.TStamp, nd.Ticker, nd.Description, nd.Notes, nd.Action, nd.TriggerType, nd.`Trigger`, nd.Active, ei.Company, ei.`MktCap(B)`, ei.50dHi, ei.50dLo, lds.`Open`, lds.High, lds.Low, lds.`Close`, if(lds.Volume = null, null, lds.Volume / 1000000) as Volume, nd.`Units`, ei.52wHi, ei.52wLo, if (nd.IPrice = null, lds.`Close`, nd.IPrice) as IPrice, if (nd.IPrice = null, 0, lds.`Close` - nd.IPrice) as PriceChange, format(if (nd.IPrice = null, 0, if (IPrice = 0, 0, 100 * (lds.`Close` - nd.IPrice) / nd.IPrice)),2) as PriceChangePct, if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if (nd.Action = '2', -nd.Units * (lds.`Close` - nd.IPrice), nd.Units * (lds.`Close` - nd.IPrice)))) as Gain, format(if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if(nd.Action='2', -100 * (lds.`Close` - nd.IPrice) / nd.IPrice, 100 * (lds.`Close` - nd.IPrice) / nd.IPrice))),2) as GainPct, ei.Sector, ei.Industry, 0 as Beta, ei.PE, ei.FwdPE, ei.PEG, ei.Div, ei.ATR, ei.SMA200, ei.SMA50, ei.SMA20, ei.RSI, ei.AnRec, ei.TgtPrice, ei.EarnDate, lds.Open,  nd.Active, nd.DateEntered from hlhtxc5_dmOfx.NotesData as nd, hlhtxc5_dmOfx.Util_LastDailyStock as lds, (select * from hlhtxc5_dmOfx.EquityInfo where `Date` = (select max(`Date`) from hlhtxc5_dmOfx.EquityInfo)) as ei where nd.Ticker = lds.EquityId and nd.Ticker = ei.Ticker "; 
+        SQL_GET_STRING = SchemaName.sql("select nd.JoomlaId, nd.TStamp, nd.Ticker, nd.Description, nd.Notes, nd.Action, nd.TriggerType, nd.`Trigger`, nd.Active, ei.Company, ei.`MktCap(B)`, ei.50dHi, ei.50dLo, replace(ei.Price, ',', '') as Close, if(ei.Volume = null, null, ei.Volume / 1000000) as Volume, nd.`Units`, ei.52wHi, ei.52wLo, replace(if (nd.IPrice = null, ei.Price, nd.IPrice), ',', '') as IPrice, if (nd.IPrice = null, 0, ei.Price - nd.IPrice) as PriceChange, replace(format(if (nd.IPrice = null, 0, if (IPrice = 0, 0, 100 * (ei.Price - nd.IPrice) / nd.IPrice)),2), ',', '') as PriceChangePct, if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if (nd.Action = '2', replace(-nd.Units * (ei.Price - nd.IPrice), ',', ''), replace(nd.Units * (ei.Price - nd.IPrice), ',', '')))) as Gain, replace(format(if (nd.`Units` = null, 0, if (nd.IPrice = null, 0, if(nd.Action='2', -100 * (ei.Price - nd.IPrice) / nd.IPrice, 100 * (ei.Price - nd.IPrice) / nd.IPrice))),2), ',', '') as GainPct, ei.Sector, ei.Industry, 0 as Beta, replace(ei.PE, ',', '') as PE, replace(ei.FwdPE, ',', '') as FwdPE, ei.PEG, ei.Div, ei.ATR, ei.SMA200, ei.SMA50, ei.SMA20, ei.RSI, ei.AnRec, replace(ei.TgtPrice, ',', '') as TgtPrice, ei.EarnDate, nd.Active, nd.DateEntered from hlhtxc5_dmOfx.NotesData as nd, hlhtxc5_dmOfx.EquityInfo as ei where nd.Ticker = ei.Ticker");
 
         SQL_GET_WHERE_STRING = " and nd.JoomlaId = '%s' and nd.Active = '%s' order by nd.TStamp desc;";
 
@@ -119,7 +116,7 @@ public class NoteModel
     public NoteModel(String joomlaId, Long tStamp, String ticker,
         Double iPrice, String description, String notes, Double units,
         String action, String triggerType, String trigger, String active,
-        String dateEntered, Double high, Double low, Double close,
+        String dateEntered, Double close,
         Double priceChange, String pctPriceChange,
         Double gain, String gainPct, Double atr, String earnDate)
     {
@@ -135,8 +132,6 @@ public class NoteModel
         this.trigger = trigger;
         this.active = active;
         this.dateEntered = dateEntered;
-        this.high = high;
-        this.low = low;
         this.close = close;
         this.priceChange = priceChange;
         this.priceChangePct = pctPriceChange;

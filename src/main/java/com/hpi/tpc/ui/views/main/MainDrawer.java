@@ -27,7 +27,6 @@ public class MainDrawer
     private final Tab data;
     private final Tab portfolio;
     private final Tab coaching;
-    private final Tab tools;
     private final Tab exit;
     private final Tab setup;
     private final Tab notesTab;
@@ -49,12 +48,9 @@ public class MainDrawer
         this.portfolio = new MyTab(ROUTE_PORTFOLIO, myHLayout((Icon) VaadinIcon.PIE_CHART.create(), 
             mySpan(ROUTE_PORTFOLIO)));
         
-        this.coaching = new MyTab(ROUTE_COACHING_CONTROLLER, myHLayout(VaadinIcon.DOCTOR.create(), 
+        this.coaching = new MyTab(ROUTE_COACHING_CONTROLLER, myHLayout(VaadinIcon.DOCTOR.create(),
             mySpan(ROUTE_COACHING_CONTROLLER)));
-        
-        this.tools = new MyTab(ROUTE_TOOLS, myHLayout((Icon) VaadinIcon.TOOLBOX.create(),
-            mySpan(ROUTE_TOOLS)));
-        
+
         this.exit = new MyTab(ROUTE_EXIT, myHLayout((Icon) VaadinIcon.EXIT.create(), mySpan(ROUTE_EXIT)));
         
         this.setup = new MyTab(ROUTE_SETUP, myHLayout((Icon) VaadinIcon.TOOLS.create(), mySpan(ROUTE_SETUP)));
@@ -71,7 +67,7 @@ public class MainDrawer
         this.mainMenuTabs.setId("drawerTabsID");
         this.mainMenuTabs.setClassName("drawerTabs");
         this.mainMenuTabs.add(this.notesTab, this.portfolio, this.coaching,
-            this.tools, this.data, this.setup, this.about, this.exit);
+            this.data, this.setup, this.about, this.exit);
 
         if (SecurityUtils.getUserId() != null
             && SecurityUtils.getUserId() == 816)

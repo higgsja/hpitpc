@@ -72,7 +72,7 @@ public class ClientSectorModel
             SchemaName.sql("update hlhtxc5_dmOfx.ClientSectorList set ClientSector = '%s', CSecShort = '%s', Comment = '%s' where JoomlaId = '%s' and ClientSectorId = '%s'");
 
         SQL_SECTORID_FROM_TKR =
-            SchemaName.sql("select ClientSectorId from ClientSectorList, (select Sector from hlhtxc5_dmOfx.EquityInfo where `Date` = (select MAX(`Date`) as `Date` from hlhtxc5_dmOfx.EquityInfo) and Ticker = '%s') as A where JoomlaId = '%s' and ClientSector = A.Sector");
+            SchemaName.sql("select ClientSectorId from ClientSectorList, (select Sector from hlhtxc5_dmOfx.EquityInfo where Ticker = '%s') as A where JoomlaId = '%s' and ClientSector = A.Sector");
     }
 
     public ClientSectorModel() {

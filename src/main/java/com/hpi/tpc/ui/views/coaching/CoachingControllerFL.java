@@ -2,7 +2,7 @@ package com.hpi.tpc.ui.views.coaching;
 
 import com.hpi.tpc.ui.views.baseClass.*;
 import static com.hpi.tpc.ui.views.coaching.CoachingConst.*;
-import com.hpi.tpc.ui.views.coaching.benchmark.*;
+import com.hpi.tpc.ui.views.coaching.gains.*;
 import com.hpi.tpc.ui.views.main.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.contextmenu.*;
@@ -52,14 +52,6 @@ public class CoachingControllerFL
     @Override
     public void addMenuBarTabs()
     {
-        MenuItem benchmarkItem = this.menuBar.addItem(ROUTE_COACHING_BENCHMARK_CONTROLLER);
-
-        benchmarkItem.addClickListener(
-            (ClickEvent<MenuItem> event) ->
-        {
-            UI.getCurrent().navigate(ROUTE_COACHING_BENCHMARK_CONTROLLER);
-        });
-
         MenuItem gainsItem = this.menuBar.addItem(ROUTE_COACHING_GAINS_CONTROLLER);
 
         gainsItem.addClickListener(
@@ -96,6 +88,6 @@ public class CoachingControllerFL
         super.doNavBar(null);
 
         //send to default view
-        bee.forwardTo(BenchmarkControllerFL.class);
+        bee.forwardTo(GainsControllerFL.class);
     }
 }

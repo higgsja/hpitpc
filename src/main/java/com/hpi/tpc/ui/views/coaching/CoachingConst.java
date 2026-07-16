@@ -16,12 +16,7 @@ public class CoachingConst
 
     public static final String ROUTE_COACHING_CONTROLLER = "Coaching";
     public static final String ROUTE_COACHING_PREFERENCES = "CoachingPrefs";
-    
-        public static final String TAB_COACHING_BENCHMARK = "Benchmark";
-    public static final String ROUTE_COACHING_BENCHMARK_CONTROLLER = "Benchmark";
-    public static final String ROUTE_COACHING_BENCHMARK_VIEW = "BenchmarkView";
-    public static final String ROUTE_COACHING_BENCHMARK_PREFS = "BenchmarkPrefs";
-    
+
     public static final String TITLE_COACHING_GAINS = "Gains";
     public static final String TAB_COACHING_GAINS = "Gains";    
     public static final String ROUTE_COACHING_GAINS_CONTROLLER = "Gains";
